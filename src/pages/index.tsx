@@ -21,30 +21,30 @@ export default function Home() {
       CHA: 5
     },
     Skills: {
-      Ironflesh: 0,
-      Power_Strike: 0,
-      Power_Throw: 0,
-      Power_Draw: 0,
-      Weapon_Master: 0,
-      Shield: 0,
-      Athletics: 0,
-      Riding: 1,
-      Horse_Archery: 0,
-      Looting: 0,
-      Trainer: 0,
-      Tracking: 0,
-      Tactics: 0,
-      Path_Finding: 0,
-      Spotting: 0,
-      Inventory_Management: 0,
-      Wound_Treatment: 0,
-      Surgery: 0,
-      First_Aid: 0,
-      Engineer: 0,
-      Persuasion: 0,
-      Prisoner_Management: 0,
-      Leadership: 1,
-      Trade: 0
+      Ironflesh: 1,
+      Power_Strike: 1,
+      Power_Throw: 1,
+      Power_Draw: 1,
+      Weapon_Master: 1,
+      Shield: 1,
+      Athletics: 1,
+      Riding: 2,
+      Horse_Archery: 1,
+      Looting: 1,
+      Trainer: 1,
+      Tracking: 1,
+      Tactics: 1,
+      Path_Finding: 1,
+      Spotting: 1,
+      Inventory_Management: 1,
+      Wound_Treatment: 1,
+      Surgery: 1,
+      First_Aid: 1,
+      Engineer: 1,
+      Persuasion: 1,
+      Prisoner_Management: 1,
+      Leadership: 2,
+      Trade: 1
     },
     Proficiencies: {
       One_Handed_Weapons: 23,
@@ -58,19 +58,28 @@ export default function Home() {
   const reducer = (state: any, action: string) => {
     switch(action) {
       case "Male":
-        return {
-          ...state, Attributes: {
-            ...state.Attributes, 
-            STR: state.Attributes.STR + 1,
-            CHA: state.Attributes.CHA + 1
+        if (state.Gender != "Male") {
+          return {
+            ...state,
+              Gender: "Male",
+              Attributes: {
+                ...state.Attributes, 
+                STR: state.Attributes.STR + 1,
+                CHA: state.Attributes.CHA + 1
+              }
           }
         }
+
       case "Female":
-        return {
-          ...state, Attributes: {
-            ...state.Attributes, 
-            AGI: state.Attributes.AGI + 1,
-            INT: state.Attributes.INT + 1
+        if (state.Gender != "Female") {
+          return {
+            ...state, 
+              Gender: "Female",
+              Attributes: {
+                ...state.Attributes, 
+                AGI: state.Attributes.AGI + 1,
+                INT: state.Attributes.INT + 1
+              }
           }
         }
     }
