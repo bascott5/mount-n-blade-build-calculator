@@ -56,6 +56,12 @@ export const initialState = {
     Throwing: 19
   }
 }
+
+/*interface test {
+  contextState: any,
+  contextDispatch: Dispatch<string>
+}*/
+
 export const context = createContext<{ contextState: any, contextDispatch: Dispatch<string> } | null>(null);
 
 export default function Home() {
