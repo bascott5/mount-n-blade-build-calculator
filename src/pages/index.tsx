@@ -4,23 +4,31 @@ After that the player can freely add to their stats.
 They should then be able to save the information and load it back into the website at a later time.
 Scaling would feature the inclusion of a seperate build calculator for Bannerlord, as well as other Warband mods.*/
 import { Inter } from '@next/font/google'
-import Background from '@/components/background';
 import { createContext, Dispatch, useReducer } from 'react'
+import Background from '@/components/background';
 import Attributes from '@/components/attributes';
+import Proficiencies from '@/components/proficiencies';
+import Skills from '@/components/skills';
+
+export const context = createContext<{ contextState: any, contextDispatch: Dispatch<string> } | null>(null);
 
 export const initialState = {
   Level: 1,
-  Gender: "",
-  Father: "",
-  Early_Life: "",
-  Adulthood: "",
-  Adventuring_Reason: "",
+  Background: {
+    Gender: "",
+    Father: "",
+    Early_Life: "",
+    Adulthood: "",
+    Adventuring_Reason: "",
+  },
+  Attribute_Points: 4,
   Attributes: {
     STR: 5,
     AGI: 5,
     INT: 4,
     CHA: 5
   },
+  Skill_Points: 0,
   Skills: {
     Ironflesh: 1,
     Power_Strike: 1,
@@ -47,6 +55,7 @@ export const initialState = {
     Leadership: 2,
     Trade: 1
   },
+  Proficiency_Points: 0,
   Proficiencies: {
     One_Handed_Weapons: 23,
     Two_Handed_Weapons: 15,
@@ -57,25 +66,436 @@ export const initialState = {
   }
 }
 
-/*interface test {
-  contextState: any,
-  contextDispatch: Dispatch<string>
-}*/
-
-export const context = createContext<{ contextState: any, contextDispatch: Dispatch<string> } | null>(null);
-
 export default function Home() {
   const reducer = (state: any, action: string) => {
     switch(action) {
-
+      //ATTRIBUTES
       case "inc_STR":
-        return {
-          ...state,
-          Attributes: {
-            ...state.Attributes,
-            STR: state.Attributes.STR + 1
+        if (state.Attribute_Points > 0){
+          return {
+            ...state,
+            Attributes: {
+              ...state.Attributes,
+              STR: state.Attributes.STR + 1
+            },
+            Attribute_Points: state.Attribute_Points - 1
           }
-        }
+        } else {
+            return {
+              ...state,
+              Attributes: {
+                ...state.Attributes,
+                STR: state.Attributes.STR = state.Attributes.STR
+              }
+            }
+          }
+        case "inc_AGI":
+          if (state.Attribute_Points > 0){
+            return {
+              ...state,
+              Attributes: {
+                ...state.Attributes,
+                AGI: state.Attributes.AGI + 1
+              },
+              Attribute_Points: state.Attribute_Points - 1
+            }
+          } else {
+            return {
+              ...state,
+              Attributes: {
+                ...state.Attributes,
+                AGI: state.Attributes.AGI = state.Attributes.AGI
+              }
+            }
+          }
+        case "inc_INT":
+          if (state.Attribute_Points > 0){
+            return {
+              ...state,
+              Attributes: {
+                ...state.Attributes,
+                INT: state.Attributes.INT + 1
+              },
+              Attribute_Points: state.Attribute_Points - 1
+            }
+          } else {
+            return {
+              ...state,
+              Attributes: {
+                ...state.Attributes,
+                INT: state.Attributes.INT = state.Attributes.INT
+              }
+            }
+          }
+          case "inc_CHA":
+            if (state.Attribute_Points > 0){
+              return {
+                ...state,
+                Attributes: {
+                  ...state.Attributes,
+                  CHA: state.Attributes.CHA + 1
+                },
+                Attribute_Points: state.Attribute_Points - 1
+              }
+            } else {
+            return {
+              ...state,
+              Attributes: {
+                ...state.Attributes,
+                CHA: state.Attributes.CHA = state.Attributes.CHA
+              }
+            }
+          }
+          case "dec_STR":
+            if (state.Attributes.STR > 5){
+              return {
+                ...state,
+                Attributes: {
+                  ...state.Attributes,
+                  STR: state.Attributes.STR - 1
+                },
+                Attribute_Points: state.Attribute_Points + 1
+              }
+            } else {
+                return {
+                  ...state,
+                  Attributes: {
+                    ...state.Attributes,
+                    STR: state.Attributes.STR = 5
+                  }
+                }
+              }
+            case "dec_AGI":
+              if (state.Attributes.AGI > 5){
+                return {
+                  ...state,
+                  Attributes: {
+                    ...state.Attributes,
+                    AGI: state.Attributes.AGI - 1
+                  },
+                  Attribute_Points: state.Attribute_Points + 1
+                }
+              } else {
+                return {
+                  ...state,
+                  Attributes: {
+                    ...state.Attributes,
+                    AGI: state.Attributes.AGI = 5
+                  }
+                }
+              }
+            case "dec_INT":
+              if (state.Attributes.INT > 4){
+                return {
+                  ...state,
+                  Attributes: {
+                    ...state.Attributes,
+                    INT: state.Attributes.INT - 1
+                  },
+                  Attribute_Points: state.Attribute_Points + 1
+                }
+              } else {
+                return {
+                  ...state,
+                  Attributes: {
+                    ...state.Attributes,
+                    INT: state.Attributes.INT = 4
+                  }
+                }
+              }
+              case "dec_CHA":
+                if (state.Attributes.CHA > 5){
+                  return {
+                    ...state,
+                    Attributes: {
+                      ...state.Attributes,
+                      CHA: state.Attributes.CHA - 1
+                    },
+                    Attribute_Points: state.Attribute_Points + 1
+                  }
+                } else {
+                return {
+                  ...state,
+                  Attributes: {
+                    ...state.Attributes,
+                    CHA: state.Attributes.CHA = 5
+                  }
+                }
+              }
+
+      //PROFICIENCIES
+      case "inc_One_Handed_Weapons":
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons + 1
+            },
+            Proficiency_Points: state.Proficiency_Points - 1
+          }
+      case "inc_Two_Handed_Weapons":
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Two_Handed_Weapons: state.Proficiencies.Two_Handed_Weapons + 1
+            },
+            Proficiency_Points: state.Proficiency_Points - 1
+          }
+      case "inc_Polearms":
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Polearms: state.Proficiencies.Polearms + 1
+            },
+            Proficiency_Points: state.Proficiency_Points - 1
+          }
+      case "inc_Archery":
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Archery: state.Proficiencies.Archery + 1
+            },
+            Proficiency_Points: state.Proficiency_Points - 1
+          }
+      case "inc_Crossbows":
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Crossbows: state.Proficiencies.Crossbows + 1
+            },
+            Proficiency_Points: state.Proficiency_Points - 1
+          }
+      case "inc_Throwing":
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Throwing: state.Proficiencies.Throwing + 1
+            },
+            Proficiency_Points: state.Proficiency_Points - 1
+          }
+
+      //SKILLS
+      case "inc_Ironflesh":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Power_Strike":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Power_Throw":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Power_Draw":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Weapon_Master":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Shield":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Athletics":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Riding":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Horse_Archery":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Looting":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Trainer":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Tracking":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Tactics":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Path_Finding":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Spotting":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Inventory_Management":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Wound_Treatment":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Surgery":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_First_Aid":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Engineer":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Persuasion":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Prisoner_Management":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Leadership":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
+      case "inc_Trade":
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh + 1
+            },
+            Skill_Points: state.Skill_Points - 1
+          }
 
       case "Male":
         if (state.Gender != "Male") {
@@ -89,7 +509,6 @@ export default function Home() {
               }
           }
         }
-
       case "Female":
         if (state.Gender != "Female") {
           return {
@@ -110,6 +529,8 @@ export default function Home() {
   return (
     <context.Provider value={{contextState: state, contextDispatch: dispatch}}>
       <Attributes />
+      <Skills />
+      <Proficiencies/>
     </context.Provider>
   )
 }

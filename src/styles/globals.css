@@ -1,0 +1,14 @@
+.skills {
+    display: flex;
+    float: right;
+    width: 750px;
+    line-height: 0px;
+}
+
+.proficiencies {
+    display: flex;
+    float: right;
+    margin-right: auto;
+    width: 750px;
+    line-height: 0px;
+}
