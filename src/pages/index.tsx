@@ -9,6 +9,8 @@ import Background from '@/components/background';
 import Attributes from '@/components/attributes';
 import Proficiencies from '@/components/proficiencies';
 import Skills from '@/components/skills';
+import Dropdown from '@/components/dropdown';
+import DropdownButton from '@/components/dropdownbuttons';
 
 export const context = createContext<{ contextState: any, contextDispatch: Dispatch<string> } | null>(null);
 
@@ -76,7 +78,7 @@ export default function Home() {
       //ATTRIBUTES
       case "inc_Attributes":
         return {
-          ...state, Attributes: Object.entries(state.Attributes).map(([keys, value] /*{keys}: test*/) => ({[keys]: value + 1}))
+          ...state, Attributes: Object.entries(state.Attributes).map(([keys, value] /*{keys}: test*/) => ({[keys]: keys + 1}))
         }
       case "inc_STR":
         if (state.Attribute_Points > 0){

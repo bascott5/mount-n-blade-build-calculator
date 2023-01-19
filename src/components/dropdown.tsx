@@ -1,7 +1,7 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, ReactNode } from 'react';
 import { context } from '../pages/index';
 
-export default function Dropdown() {
+export default function Dropdown(children: ReactNode) {
     const stateContext = useContext(context);
     const [display, setDisplay] = useState('none');
 
@@ -15,8 +15,7 @@ export default function Dropdown() {
         <div>
             <p>hello</p>
             <div className={display}>
-                <button onClick={() => stateContext?.contextDispatch('Male')}>Male</button>
-                <button onClick={() => stateContext?.contextDispatch('Female')}>Female</button>
+                {children}
             </div>
         </div>
     )
