@@ -7,7 +7,7 @@ export default function Attributes() {
         <div>
             {Object.entries(stateContext?.contextState.Attributes).map(([key, value]) => (
                 <ul>
-                    <button onClick={() => stateContext?.contextDispatch('inc_' + key)}>+</button> 
+                    <button onClick={() => stateContext?.contextDispatch('inc_Attributes')}>+</button> 
                     <p>{key} {value}</p>
                     <button onClick={() => stateContext?.contextDispatch('dec_' + key)}>-</button>
                 </ul>

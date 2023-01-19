@@ -66,10 +66,18 @@ export const initialState = {
   }
 }
 
+interface test {
+  [keys: string]: number
+}
+
 export default function Home() {
   const reducer = (state: any, action: string) => {
     switch(action) {
       //ATTRIBUTES
+      case "inc_Attributes":
+        return {
+          ...state, Attributes: Object.entries(state.Attributes).map(([keys, value] /*{keys}: test*/) => ({[keys]: value + 1}))
+        }
       case "inc_STR":
         if (state.Attribute_Points > 0){
           return {
