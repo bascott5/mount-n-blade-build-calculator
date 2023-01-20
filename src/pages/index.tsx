@@ -68,18 +68,14 @@ export const initialState = {
   }
 }
 
-interface test {
-  [keys: string]: number
-}
-
 export default function Home() {
   const reducer = (state: any, action: string) => {
     switch(action) {
       //ATTRIBUTES
-      case "inc_Attributes":
+      /*case "inc_Attributes":
         return {
-          ...state, Attributes: Object.entries(state.Attributes).map(([keys, value] /*{keys}: test*/) => ({[keys]: keys + 1}))
-        }
+          ...state, Attributes: Object.entries(Attributes!).reduce((sum, [keys, value]) => ({...sum, [keys]: value + 1}))
+        }*/
       case "inc_STR":
         if (state.Attribute_Points > 0){
           return {
@@ -508,27 +504,67 @@ export default function Home() {
           }
 
       case "Male":
-        if (state.Gender != "Male") {
+        if (state.Gender == "Female") {
           return {
             ...state,
               Gender: "Male",
               Attributes: {
                 ...state.Attributes, 
+                STR: state.Attributes.STR + 2,
+                AGI: state.Attributes.AGI - 2,
+                INT: state.Attributes.INT - 2,
+                CHA: state.Attributes.CHA + 2
+              }
+          }
+        } else if (state.Gender != "Male") {
+            return {
+              ...state,
+              Gender: "Male",
+              Attributes: {
+                ...state.Attributes, 
                 STR: state.Attributes.STR + 1,
+                AGI: state.Attributes.AGI - 1,
+                INT: state.Attributes.INT - 1,
                 CHA: state.Attributes.CHA + 1
               }
+            }
+        } else if (state.Gender == "Male") {
+          return {
+            ...state,
+              Gender: "Male",
+              Attributes: state.Attributes = state.Attributes
           }
         }
       case "Female":
-        if (state.Gender != "Female") {
+        if (state.Gender == "Male") {
           return {
-            ...state, 
+            ...state,
               Gender: "Female",
               Attributes: {
                 ...state.Attributes, 
-                AGI: state.Attributes.AGI + 1,
-                INT: state.Attributes.INT + 1
+                STR: state.Attributes.STR - 2,
+                AGI: state.Attributes.AGI + 2,
+                INT: state.Attributes.INT + 2,
+                CHA: state.Attributes.CHA - 2
               }
+          }
+        } else if (state.Gender != "Female") {
+            return {
+              ...state,
+              Gender: "Female",
+              Attributes: {
+                ...state.Attributes, 
+                STR: state.Attributes.STR - 1,
+                AGI: state.Attributes.AGI + 1,
+                INT: state.Attributes.INT + 1,
+                CHA: state.Attributes.CHA - 1
+              }
+            }
+        } else if (state.Gender == "Female") {
+          return {
+            ...state,
+              Gender: "Female",
+              Attributes: state.Attributes = state.Attributes
           }
         }
     }
@@ -538,6 +574,12 @@ export default function Home() {
 
   return (
     <context.Provider value={{contextState: state, contextDispatch: dispatch}}>
+      <Dropdown>
+        <div>
+            <button onClick={() => dispatch('Male')}>Male</button>
+            <button onClick={() => dispatch('Female')}>Female</button>
+        </div>
+      </Dropdown>
       <Attributes />
       <Skills />
       <Proficiencies/>

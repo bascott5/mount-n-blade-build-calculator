@@ -1,22 +1,38 @@
-import { useState, useContext, ReactNode } from 'react';
-import { context } from '../pages/index';
+import { useState, useEffect, useRef } from 'react';
 
-export default function Dropdown(children: ReactNode) {
-    const stateContext = useContext(context);
-    const [display, setDisplay] = useState('none');
+type props = {
+    children: JSX.Element,
+  };
 
-    if (display == 'none') {
-        setDisplay('block')
-    } else {
-        setDisplay('none')
-    }
+export default function Dropdown({children}: props) {
+    const [open, setOpen] = useState(false);
+    const boxMenu = useRef(null)
 
-    return (
-        <div>
-            <p>hello</p>
-            <div className={display}>
-                {children}
+    useEffect(() => {
+        const closeOpenMenus = (e: any) => {
+            if (boxMenu.current && open && !boxMenu.current.contains(e.target)){
+              setOpen(false)
+            }
+        }
+
+        document.addEventListener('mousedown', closeOpenMenus)
+        return () => document.addEventListener('mousedown', closeOpenMenus)
+    }, [boxMenu])
+
+    if (open == false) {
+        return (
+            <div ref={boxMenu}>
+                <p onClick={() => setOpen(true)}>hello</p>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return (
+            <div ref={boxMenu} onClick={() => setOpen(false)}> 
+                hello
+                <div>
+                    {children}
+                </div>
+            </div>
+        )
+    }
 }
