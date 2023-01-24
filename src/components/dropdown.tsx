@@ -19,16 +19,16 @@ export default function Dropdown({children}: props) {
         return () => document.addEventListener('mousedown', closeOpenMenus)
     }, [boxMenu])
 
+    //make terminary operator decide whether it's set to open or closed
     if (open == false) {
         return (
             <div ref={boxMenu}>
-                <p onClick={() => setOpen(true)}>hello</p>
+                <p onClick={() => setOpen(true)}>0</p>
             </div>
         )
     } else {
         return (
             <div ref={boxMenu} onClick={() => setOpen(false)}> 
-                hello
                 <div>
                     {children}
                 </div>

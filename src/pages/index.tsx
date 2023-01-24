@@ -65,6 +65,49 @@ export const initialState = {
     Archery: 15,
     Crossbows: 15,
     Throwing: 19
+  },
+  Stats: {
+    HP: 0
+  },
+  Denars: 0,
+  Renown: 0,
+  Honor: 0,
+  Equipment: [],
+  Limits: {
+    STR_Min: 5,
+    AGI_Min: 5,
+    INT_Min: 4,
+    CHA_Min: 5,
+    Ironflesh_Min: 0,
+    Power_Strike_Min: 0,
+    Power_Throw_Min: 0,
+    Power_Draw_Min: 0,
+    Weapon_Master_Min: 0,
+    Shield_Min: 0,
+    Athletics_Min: 0,
+    Riding_Min: 0,
+    Horse_Archery_Min: 0,
+    Looting_Min: 0,
+    Trainer_Min: 0,
+    Tracking_Min: 0,
+    Tactics_Min: 0,
+    Path_Finding_Min: 0,
+    Spotting_Min: 0,
+    Inventory_Management_Min: 0,
+    Wound_Treatment_Min: 0,
+    Surgery_Min: 0,
+    First_Aid_Min: 0,
+    Engineer_Min: 0,
+    Persuasion_Min: 0,
+    Prisoner_Management_Min: 0,
+    Leadership_Min: 0,
+    Trade_Min: 0,
+    One_Handed_Weapons_Min: 0,
+    Two_Handed_Weapons_Min: 0,
+    Polearms_Min: 0,
+    Archery_Min: 0,
+    Crossbows_Min: 0,
+    Throwing_Min: 0
   }
 }
 
@@ -510,10 +553,10 @@ export default function Home() {
               Gender: "Male",
               Attributes: {
                 ...state.Attributes, 
-                STR: state.Attributes.STR + 2,
-                AGI: state.Attributes.AGI - 2,
-                INT: state.Attributes.INT - 2,
-                CHA: state.Attributes.CHA + 2
+                STR: state.Attributes.STR + 1,
+                AGI: state.Attributes.AGI - 1,
+                INT: state.Attributes.INT - 1,
+                CHA: state.Attributes.CHA + 1
               }
           }
         } else if (state.Gender != "Male") {
@@ -523,8 +566,8 @@ export default function Home() {
               Attributes: {
                 ...state.Attributes, 
                 STR: state.Attributes.STR + 1,
-                AGI: state.Attributes.AGI - 1,
-                INT: state.Attributes.INT - 1,
+                AGI: state.Attributes.AGI + 0,
+                INT: state.Attributes.INT + 0,
                 CHA: state.Attributes.CHA + 1
               }
             }
@@ -542,10 +585,10 @@ export default function Home() {
               Gender: "Female",
               Attributes: {
                 ...state.Attributes, 
-                STR: state.Attributes.STR - 2,
-                AGI: state.Attributes.AGI + 2,
-                INT: state.Attributes.INT + 2,
-                CHA: state.Attributes.CHA - 2
+                STR: state.Attributes.STR - 1,
+                AGI: state.Attributes.AGI + 1,
+                INT: state.Attributes.INT + 1,
+                CHA: state.Attributes.CHA - 1
               }
           }
         } else if (state.Gender != "Female") {
@@ -554,10 +597,10 @@ export default function Home() {
               Gender: "Female",
               Attributes: {
                 ...state.Attributes, 
-                STR: state.Attributes.STR - 1,
+                STR: state.Attributes.STR + 0,
                 AGI: state.Attributes.AGI + 1,
                 INT: state.Attributes.INT + 1,
-                CHA: state.Attributes.CHA - 1
+                CHA: state.Attributes.CHA + 0
               }
             }
         } else if (state.Gender == "Female") {
@@ -567,6 +610,463 @@ export default function Home() {
               Attributes: state.Attributes = state.Attributes
           }
         }
+
+        case "Noble":
+          if (state.Father != "Noble") {
+            switch (state.Gender) {
+              case "":
+                return {
+                  ...state,
+                  Father: "Noble",
+                  Attributes: {
+                    ...state.Attributes,
+                      INT: state.Attributes.INT + 1,
+                      CHA: state.Attributes.CHA + 1
+                  },
+                  Skills: {
+                    ...state.Skills,
+                      Riding: state.Skills.Riding + 1,
+                      Leadership: state.Skills.Leadership + 1
+                  },
+                  Proficiencies: {
+                    ...state.Proficiencies,
+                      One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons + 2,
+                      Polearms: state.Proficiencies.Polearms + 7
+                  },
+                  Denars: state.Denars + 100,
+                  Renown: state.Renown + 50,
+                  Equipment: state.Equipment + "Battered Old Round Shield" + "Banner"
+                }
+              case "Male":
+                return {
+                  ...state,
+                  Father: "Noble",
+                  Attributes: {
+                    ...state.Attributes,
+                      INT: state.Attributes.INT + 1,
+                      CHA: state.Attributes.CHA + 2
+                  },
+                  Skills: {
+                    ...state.Skills,
+                      Riding: state.Skills.Riding + 1,
+                      Leadership: state.Skills.Leadership + 1,
+                      Power_Strike: state.Skills.Power_Strike + 1,
+                      Weapon_Master: state.Skills.Weapon_Master + 1,
+                      Tactics: state.Skills.Tactics + 1
+                  },
+                  Proficiencies: {
+                    ...state.Proficiencies,
+                      One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons + 2,
+                      Polearms: state.Proficiencies.Polearms + 21,
+                      Two_Handed_Weapons: state.Proficiencies.Two_Handed_Weapons + 15
+                  },
+                  Denars: state.Denars + 100,
+                  Renown: state.Renown + 100,
+                  Honor: state.Honor + 3,
+                  Equipment: state.Equipment + "Battered Old Round Shield" + "Banner"
+                }
+              case "Female":
+                return {
+                  ...state,
+                  Father: "Noble",
+                  Attributes: {
+                    ...state.Attributes,
+                      INT: state.Attributes.INT + 2,
+                      CHA: state.Attributes.CHA + 1
+                  },
+                  Skills: {
+                    ...state.Skills,
+                      Riding: state.Skills.Riding + 2,
+                      Leadership: state.Skills.Leadership + 1,
+                      Wound_Treatment: state.Skills.Wound_Treatment + 1,
+                      First_Aid: state.Skills.First_Aid + 1
+                  },
+                  Proficiencies: {
+                    ...state.Proficiencies,
+                      One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons + 14,
+                      Polearms: state.Proficiencies.Polearms + 7
+                  },
+                  Denars: state.Denars + 100,
+                  Renown: state.Renown + 50,
+                  Equipment: state.Equipment + "Battered Old Round Shield" + "Banner"
+                }
+            }
+          } else if (state.Father == "Noble") {
+            return {
+              ...state,
+                Father: "Noble",
+                Attributes: state.Attributes = state.Attributes,
+                Skills: state.Skills = state.Skills,
+                Proficiencies: state.Proficiencies = state.Proficiencies,
+                Denars: state.Denars = state.Denars,
+                Renown: state.Renown = state.Renown,
+                Honor: state.Honor = state.Honor,
+                Equipment: state.Equipment = state.Equipment
+            }
+          }
+
+        case "Merchant":
+          if (state.Father != "Merchant") {
+            return {
+              ...state,
+              Father: "Merchant",
+              Attributes: {
+                ...state.Attributes,
+                  INT: state.Attributes.INT + 2,
+                  CHA: state.Attributes.CHA + 1
+              },
+              Skills: {
+                ...state.Skills,
+                  Riding: state.Skills.Riding + 1,
+                  Inventory_Management: state.Skills.Inventory_Management + 1,
+                  Leadership: state.Skills.Leadership + 1,
+                  Trade: state.Skills.Trade + 2
+              },
+              Proficiencies: {
+                ...state.Proficiencies,
+                  Two_Handed_Weapons: state.Proficiencies.Two_Handed_Weapons + 15,
+                  Polearms: state.Proficiencies.Polearms + 7
+              },
+              Denars: state.Denars + 250,
+              Renown: state.Renown + 20
+            }
+          } else if (state.Father == "Merchant") {
+            return {
+              ...state,
+                Father: "Merchant",
+                Attributes: state.Attributes = state.Attributes,
+                Skills: state.Skills = state.Skills,
+                Proficiencies: state.Proficiencies = state.Proficiencies,
+                Denars: state.Denars = state.Denars,
+                Renown: state.Renown = state.Renown
+            }
+          }
+
+        case "Warrior":
+          if (state.Father != "Warrior") {
+            return {
+              ...state,
+              Father: "Warrior",
+              Attributes: {
+                ...state.Attributes,
+                  STR: state.Attributes.STR + 1,
+                  AGI: state.Attributes.AGI + 1,
+                  CHA: state.Attributes.CHA + 1
+              },
+              Skills: {
+                ...state.Skills,
+                  Ironflesh: state.Skills.Ironflesh + 1,
+                  Power_Strike: state.Skills.Power_Strike + 1,
+                  Weapon_Master: state.Skills.Weapon_Master + 1,
+                  Trainer: state.Skills.Trainer + 1,
+                  Leadership: state.Skills.Leadership + 1
+              },
+              Proficiencies: {
+                ...state.Proficiencies,
+                  One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons + 2,
+                  Two_Handed_Weapons: state.Proficiencies.Two_Handed_Weapons + 23,
+                  Polearms: state.Proficiencies.Polearms + 33,
+                  Throwing: state.Proficiencies.Throwing + 15
+              },
+              Denars: state.Denars + 50,
+              Renown: state.Renown + 10,
+              Equipment: state.Equipment + "Battered Old Round Shield"
+            }
+          } else if (state.Father == "Warrior") {
+            return {
+              ...state,
+                Father: "Warrior",
+                Attributes: state.Attributes = state.Attributes,
+                Skills: state.Skills = state.Skills,
+                Proficiencies: state.Proficiencies = state.Proficiencies,
+                Denars: state.Denars = state.Denars,
+                Renown: state.Renown = state.Renown,
+                Equipment: state.Equipment = state.Equipment
+            }
+          }
+          
+        case "Hunter":
+          if (state.Father != "Hunter") {
+            return {
+              ...state,
+              Father: "Hunter",
+              Attributes: {
+                ...state.Attributes,
+                  STR: state.Attributes.STR + 1,
+                  AGI: state.Attributes.AGI + 2
+              },
+              Skills: {
+                ...state.Skills,
+                  Power_Draw: state.Skills.Power_Draw + 1,
+                  Athletics: state.Skills.Athletics + 1,
+                  Tracking: state.Skills.Tracking + 1,
+                  Path_Finding: state.Skills.Path_Finding + 1,
+                  Spotting: state.Skills.Spotting + 1
+              },
+              Proficiencies: {
+                ...state.Proficiencies,
+                  Two_Handed_Weapons: state.Proficiencies.Two_Handed_Weapons + 15,
+                  Polearms: state.Proficiencies.Polearms + 7,
+                  Archery: state.Proficiencies.Archery + 49
+              },
+              Denars: state.Denars + 30
+            }
+          } else if (state.Father == "Hunter") {
+            return {
+              ...state,
+                Father: "Hunter",
+                Attributes: state.Attributes = state.Attributes,
+                Skills: state.Skills = state.Skills,
+                Proficiencies: state.Proficiencies = state.Proficiencies,
+                Denars: state.Denars = state.Denars
+            }
+          }
+
+        case "Nomad":
+          if (state.Father != "Nomad") {
+            switch (state.Gender) {
+              case "":
+                return {
+                  ...state,
+                  Father: "Nomad",
+                  Attributes: {
+                    ...state.Attributes,
+                      STR: state.Attributes.STR + 1,
+                      AGI: state.Attributes.AGI + 1,
+                      INT: state.Attributes.INT + 1
+                  },
+                  Skills: {
+                    ...state.Skills,
+                      Riding: state.Skills.Riding + 2,
+                      Path_Finding: state.Skills.Path_Finding + 1,
+                  },
+                  Proficiencies: {
+                    ...state.Proficiencies,
+                      One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons + 2,
+                      Polearms: state.Proficiencies.Polearms + 7,
+                      Archery: state.Proficiencies.Archery + 32,
+                      Throwing: state.Proficiencies.Throwing + 7
+                  },
+                  Denars: state.Denars + 15,
+                  Renown: state.Renown + 10,
+                  Equipment: state.Equipment + "Battered Plain Cavalry Shield"
+                }
+              case "Male":
+                return {
+                  ...state,
+                  Father: "Nomad",
+                  Attributes: {
+                    ...state.Attributes,
+                      STR: state.Attributes.STR + 1,
+                      AGI: state.Attributes.AGI + 1,
+                      INT: state.Attributes.INT + 1
+                  },
+                  Skills: {
+                    ...state.Skills,
+                      Riding: state.Skills.Riding + 2,
+                      Path_Finding: state.Skills.Path_Finding + 1,
+                      Power_Draw: state.Skills.Power_Draw + 1,
+                      Horse_Archery: state.Skills.Horse_Archery + 1
+                  },
+                  Proficiencies: {
+                    ...state.Proficiencies,
+                      One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons + 2,
+                      Polearms: state.Proficiencies.Polearms + 7,
+                      Archery: state.Proficiencies.Archery + 49,
+                      Throwing: state.Proficiencies.Throwing + 15
+                  },
+                  Denars: state.Denars + 15,
+                  Renown: state.Renown + 20,
+                  Equipment: state.Equipment + "Battered Plain Cavalry Shield"
+                }
+              case "Female":
+                return {
+                  ...state,
+                  Father: "Nomad",
+                  Attributes: {
+                    ...state.Attributes,
+                      STR: state.Attributes.STR + 1,
+                      AGI: state.Attributes.AGI + 1,
+                      INT: state.Attributes.INT + 1
+                  },
+                  Skills: {
+                    ...state.Skills,
+                      Riding: state.Skills.Riding + 2,
+                      Path_Finding: state.Skills.Path_Finding + 1,
+                      Wound_Treatment: state.Skills.Wound_Treatment + 1,
+                      First_Aid: state.Skills.First_Aid + 1
+                  },
+                  Proficiencies: {
+                    ...state.Proficiencies,
+                      One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons + 5,
+                      Polearms: state.Proficiencies.Polearms + 7,
+                      Archery: state.Proficiencies.Archery + 32,
+                      Throwing: state.Proficiencies.Throwing + 7
+                  },
+                  Denars: state.Denars + 20,
+                  Renown: state.Renown + 20,
+                  Equipment: state.Equipment + "Battered Plain Cavalry Shield"
+                }
+            }
+          } else if (state.Father == "Nomad") {
+            return {
+              ...state,
+                Father: "Nomad",
+                Attributes: state.Attributes = state.Attributes,
+                Skills: state.Skills = state.Skills,
+                Proficiencies: state.Proficiencies = state.Proficiencies,
+                Denars: state.Denars = state.Denars,
+                Renown: state.Renown = state.Renown,
+                Equipment: state.Equipment = state.Equipment
+            }
+          }
+
+        case "Thief":
+          if (state.Father != "Thief") {
+            return {
+              ...state,
+              Father: "Thief",
+              Attributes: {
+                ...state.Attributes,
+                  AGI: state.Attributes.AGI + 3
+              },
+              Skills: {
+                ...state.Skills,
+                  Power_Throw: state.Skills.Power_Throw + 1,
+                  Athletics: state.Skills.Athletics + 2,
+                  Looting: state.Skills.Looting + 1,
+                  Inventory_Management: state.Skills.Inventory_Management + 1
+              },
+              Proficiencies: {
+                ...state.Proficiencies,
+                  One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons + 14,
+                  Polearms: state.Proficiencies.Polearms + 7,
+                  Throwing: state.Proficiencies.Throwing + 31
+              },
+              Denars: state.Denars + 25,
+              Equipment: state.Equipment + "Throwing Knives"
+            }
+          } else if (state.Father == "Thief") {
+            return {
+              ...state,
+                Father: "Thief",
+                Attributes: state.Attributes = state.Attributes,
+                Skills: state.Skills = state.Skills,
+                Proficiencies: state.Proficiencies = state.Proficiencies,
+                Equipment: state.Equipment = state.Equipment,
+                Denars: state.Denars = state.Denars
+            }
+          }
+
+        case "Page":
+          if (state.Early_Life != "Page") {
+            return {
+              ...state,
+              Early_Life: "Page",
+              Attributes: {
+                ...state.Attributes,
+                  STR: state.Attributes.STR + 1,
+                  CHA: state.Attributes.CHA + 1
+              },
+              Skills: {
+                ...state.Skills,
+                  Power_Strike: state.Skills.Power_Strike + 1,
+                  Persuasion: state.Skills.Persuasion + 1
+              },
+              Proficiencies: {
+                ...state.Proficiencies,
+                  One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons + 8,
+                  Polearms: state.Proficiencies.Polearms + 3
+              }
+            }
+          } else if (state.Father == "Page") {
+            return {
+              ...state,
+                Father: "Page",
+                Attributes: state.Attributes = state.Attributes,
+                Skills: state.Skills = state.Skills,
+                Proficiencies: state.Proficiencies = state.Proficiencies
+            }
+          }
+        case "Apprentice":
+          if (state.Early_Life != "Apprentice") {
+            return {
+              ...state,
+              Early_Life: "Apprentice",
+              Attributes: {
+                ...state.Attributes,
+                  STR: state.Attributes.STR + 1,
+                  INT: state.Attributes.INT + 1
+              },
+              Skills: {
+                ...state.Skills,
+                  Engineer: state.Skills.Engineer + 1,
+                  Trade: state.Skills.Trade + 1
+              }
+            }
+          } else if (state.Father == "Apprentice") {
+            return {
+              ...state,
+                Father: "Apprentice",
+                Attributes: state.Attributes = state.Attributes,
+                Skills: state.Skills = state.Skills
+            }
+          }
+        case "Assistant":
+          if (state.Early_Life != "Assistant") {
+            return {
+              ...state,
+              Early_Life: "Assistant",
+              Attributes: {
+                ...state.Attributes,
+                  INT: state.Attributes.INT + 1,
+                  CHA: state.Attributes.CHA + 1
+              },
+              Skills: {
+                ...state.Skills,
+                  Inventory_Management: state.Skills.Inventory_Management + 1,
+                  Trade: state.Skills.Trade + 1
+              }
+            }
+          } else if (state.Father == "Assistant") {
+            return {
+              ...state,
+                Father: "Assistant",
+                Attributes: state.Attributes = state.Attributes,
+                Skills: state.Skills = state.Skills
+            }
+          }
+        case "Urchin":
+          if (state.Early_Life != "Urchin") {
+            return {
+              ...state,
+              Early_Life: "Urchin",
+              Attributes: {
+                ...state.Attributes,
+                  AGI: state.Attributes.AGI + 1,
+                  INT: state.Attributes.INT + 1
+              },
+              Skills: {
+                ...state.Skills,
+                  Looting: state.Skills.Looting + 1,
+                  Spotting: state.Skills.Spotting + 1
+              },
+              Proficiencies: {
+                ...state.Proficiencies,
+                  One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons + 8,
+                  Throwing: state.Proficiencies.Throwing + 7
+              }
+            }
+          } else if (state.Father == "Urchin") {
+            return {
+              ...state,
+                Father: "Urchin",
+                Attributes: state.Attributes = state.Attributes,
+                Skills: state.Skills = state.Skills,
+                Proficiencies: state.Proficiencies = state.Proficiencies
+            }
+          }
+        case "Steppe Child":
     }
   }
   
@@ -576,8 +1076,20 @@ export default function Home() {
     <context.Provider value={{contextState: state, contextDispatch: dispatch}}>
       <Dropdown>
         <div>
+            <p>Gender</p>
             <button onClick={() => dispatch('Male')}>Male</button>
             <button onClick={() => dispatch('Female')}>Female</button>
+        </div>
+      </Dropdown>
+      <Dropdown>
+        <div>
+            <p>Father</p>
+            <button onClick={() => dispatch('Noble')}>Noble</button>
+            <button onClick={() => dispatch('Merchant')}>Merchant</button>
+            <button onClick={() => dispatch('Warrior')}>Warrior</button>
+            <button onClick={() => dispatch('Hunter')}>Hunter</button>
+            <button onClick={() => dispatch('Nomad')}>Nomad</button>
+            <button onClick={() => dispatch('Thief')}>Thief</button>
         </div>
       </Dropdown>
       <Attributes />
