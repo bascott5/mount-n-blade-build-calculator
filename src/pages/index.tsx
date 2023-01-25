@@ -12,6 +12,8 @@ import Skills from '@/components/skills';
 import Dropdown from '@/components/dropdown';
 import DropdownButton from '@/components/dropdownbuttons';
 
+//TODO make a function for each attribute increase
+
 export const context = createContext<{ contextState: any, contextDispatch: Dispatch<string> } | null>(null);
 
 export const initialState = {
@@ -1067,6 +1069,111 @@ export default function Home() {
             }
           }
         case "Steppe Child":
+          if (state.Early_Life != "Steppe Child") {
+            return {
+              ...state,
+              Early_Life: "Steppe Child",
+              Attributes: {
+                ...state.Attributes,
+                  STR: state.Attributes.STR + 1,
+                  AGI: state.Attributes.AGI + 1
+              },
+              Skills: {
+                ...state.Skills,
+                  Power_Throw: state.Skills.Power_Throw + 1,
+                  Horse_Archery: state.Skills.Horse_Archery + 1
+              },
+              Proficiencies: {
+                ...state.Proficiencies,
+                  Archery: state.Proficiencies.Archery + 24,
+              },
+              Renown: state.Renown + 5
+            }
+          } else if (state.Father == "Steppe Child") {
+            return {
+              ...state,
+                Father: "Steppe Child",
+                Attributes: state.Attributes = state.Attributes,
+                Skills: state.Skills = state.Skills,
+                Proficiencies: state.Proficiencies = state.Proficiencies,
+                Renown: state.Renown = state.Renown
+            }
+          }
+        case "Squire":
+        case "Lady in Waiting":
+        case "Troubadour":
+        case "Student":
+        case "Peddler":
+        case "Smith":
+        case "Poacher":
+        
+        case "Revenge":
+          return {
+            ...state,
+              Adventuring_Reason: "Revenge",
+              Attributes: {
+                ...state.Attributes,
+                  STR: state.Attributes.STR + 2
+              },
+              Skills: {
+                ...state.Skills,
+                  Power_Strike: state.Skills.Power_Strike + 1
+              },
+          }
+        case "Loss":
+          return {
+            ...state,
+              Adventuring_Reason: "Loss",
+              Attributes: {
+                ...state.Attributes,
+                  STR: state.Attributes.CHA + 2
+              },
+              Skills: {
+                ...state.Skills,
+                  Ironflesh: state.Skills.Ironflesh + 1
+              },
+          }
+        case "Wanderlust":
+          return {
+            ...state,
+              Adventuring_Reason: "Wanderlust",
+              Attributes: {
+                ...state.Attributes,
+                  AGI: state.Attributes.AGI + 2
+              },
+              Skills: {
+                ...state.Skills,
+                  Path_Finding: state.Skills.Path_Finding + 1
+              },
+          }
+        case "Forced Out":
+          return {
+            ...state,
+              Adventuring_Reason: "Forced Out",
+              Attributes: {
+                ...state.Attributes,
+                  STR: state.Attributes.STR + 1,
+                  INT: state.Attributes.INT + 1
+              },
+              Skills: {
+                ...state.Skills,
+                  Weapon_Master: state.Skills.Weapon_Master + 1
+              },
+          }
+        case "Money":
+          return {
+            ...state,
+              Adventuring_Reason: "Money",
+              Attributes: {
+                ...state.Attributes,
+                  AGI: state.Attributes.AGI + 1,
+                  INT: state.Attributes.INT + 1
+              },
+              Skills: {
+                ...state.Skills,
+                  Looting: state.Skills.Looting + 1
+              },
+          }
     }
   }
   
