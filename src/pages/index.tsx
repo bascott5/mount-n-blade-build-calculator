@@ -1100,56 +1100,214 @@ export default function Home() {
             }
           }
         case "Squire":
+          switch (state.Gender) {
+            case "":
+              return {
+                ...state,
+                  Attributes: state.Attributes = state.Attributes,
+                  Skills: state.Skills = state.Skills,
+                  Proficiencies: state.Proficiencies = state.Proficiencies,
+                  Denars: state.Denars = state.Denars,
+                  Equipment: state.Equipment = state.Equipment
+              }
+            case "Male":
+              if (state.Adulthood != "Squire") {
+                return {
+                  ...state,
+                  Adulthood: "Squire",
+                  Attributes: {
+                    ...state.Attributes,
+                      STR: state.Attributes.STR + 1,
+                      AGI: state.Attributes.AGI + 1
+                  },
+                  Skills: {
+                    ...state.Skills,
+                      Power_Strike: state.Skills.Power_Strike + 1,
+                      Weapon_Master: state.Skills.Weapon_Master + 1,
+                      Riding: state.Skills.Riding + 1,
+                      Leadership: state.Skills.Leadership + 1
+                  },
+                  Proficiencies: {
+                    ...state.Proficiencies,
+                      One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons + 23,
+                      Two_Handed_Weapons: state.Proficiencies.Two_Handed_Weapons + 38,
+                      Polearms: state.Proficiencies.Polearms + 22,
+                      Archery: state.Proficiencies.Archery + 16,
+                      Crossbows: state.Proficiencies.Crossbows + 16,
+                      Throwing: state.Proficiencies.Throwing + 14
+                  },
+                  Denars: state.Denars + 20,
+                  Equipment: state.Equipment + "Ragged Leather Jerkin" + "Tattered Leather Boots" + "Swaybacked Saddle Horse" + "Rusty Sword" + "Hunting Crossbow" + "Bolts" + "Smoked Fish"
+                }
+              } else if (state.Adulthood == "Squire") {
+                return {
+                  ...state,
+                    Adulthood: "Squire",
+                    Attributes: state.Attributes = state.Attributes,
+                    Skills: state.Skills = state.Skills,
+                    Proficiencies: state.Proficiencies = state.Proficiencies,
+                    Denars: state.Denars = state.Denars,
+                    Equipment: state.Equipment = state.Equipment
+                }
+              }
+          }
         case "Lady in Waiting":
+          switch (state.Gender) {
+            case "":
+              return {
+                ...state,
+                  Attributes: state.Attributes = state.Attributes,
+                  Skills: state.Skills = state.Skills,
+                  Proficiencies: state.Proficiencies = state.Proficiencies,
+                  Denars: state.Denars = state.Denars,
+                  Equipment: state.Equipment = state.Equipment
+              }
+            case "Female":
+              if (state.Adulthood != "Lady in Waiting") {
+                return {
+                  ...state,
+                  Adulthood: "Lady in Waiting",
+                  Attributes: {
+                    ...state.Attributes,
+                      INT: state.Attributes.INT + 1,
+                      CHA: state.Attributes.CHA + 1
+                  },
+                  Skills: {
+                    ...state.Skills,
+                      Riding: state.Skills.Riding + 1,
+                      Wound_Treatment: state.Skills.Wound_Treatment + 1,
+                      Persuasion: state.Skills.Persuasion + 2,
+                  },
+                  Proficiencies: {
+                    ...state.Proficiencies,
+                      One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons + 8,
+                      Crossbows: state.Proficiencies.Crossbows + 24
+                  },
+                  Denars: state.Denars + 100,
+                  Equipment: state.Equipment + "Sturdy Woolen Hood" + "Sturdy Woolen Dress" + "Spirited Courser" + "Dagger" + "Hunting Crossbow" + "Bolts" + "Smoked Fish"
+                }
+              } else if (state.Adulthood == "Lady in Waiting") {
+                return {
+                  ...state,
+                    Adulthood: "Lady in Waiting",
+                    Attributes: state.Attributes = state.Attributes,
+                    Skills: state.Skills = state.Skills,
+                    Proficiencies: state.Proficiencies = state.Proficiencies,
+                    Denars: state.Denars = state.Denars,
+                    Equipment: state.Equipment = state.Equipment
+                }
+              }
+          }
         case "Troubadour":
+          if (state.Adulthood != "Troubadour") {
+            return {
+              ...state,
+              Adulthood: "Troubadour",
+              Attributes: {
+                ...state.Attributes,
+                  CHA: state.Attributes.CHA + 2
+              },
+              Skills: {
+                ...state.Skills,
+                  Weapon_Master: state.Skills.Weapon_Master + 1,
+                  Path_Finding: state.Skills.Path_Finding + 1,
+                  Persuasion: state.Skills.Persuasion + 1,
+                  Leadership: state.Skills.Leadership + 1
+              },
+              Proficiencies: {
+                ...state.Proficiencies,
+                  One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons + 19,
+                  Crossbows: state.Proficiencies.Crossbows + 16
+              },
+              Denars: state.Denars + 80,
+              Equipment: state.Equipment + "Sturdy Tabard" + "Ragged Leather Boots" + "Swaybacked Saddle Horse" + "Rusty Sword" + "Hunting Crossbow" + "Bolts" + "Smoked Fish"
+            }
+          } else if (state.Adulthood == "Troubadour") {
+            return {
+              ...state,
+                Adulthood: "Troubadour",
+                Attributes: state.Attributes = state.Attributes,
+                Skills: state.Skills = state.Skills,
+                Proficiencies: state.Proficiencies = state.Proficiencies,
+                Denars: state.Denars = state.Denars,
+                Equipment: state.Equipment = state.Equipment
+            }
+          }
         case "Student":
+          if (state.Adulthood != "Student") {
+            return {
+              ...state,
+              Adulthood: "Student",
+              Attributes: {
+                ...state.Attributes,
+                  INT: state.Attributes.INT + 2
+              },
+              Skills: {
+                ...state.Skills,
+                  Weapon_Master: state.Skills.Weapon_Master + 1,
+                  Wound_Treatment: state.Skills.Wound_Treatment + 1,
+                  Surgery: state.Skills.Surgery + 1,
+                  Persuasion: state.Skills.Persuasion + 1
+              },
+              Proficiencies: {
+                ...state.Proficiencies,
+                  One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons + 15,
+                  Crossbows: state.Proficiencies.Crossbows + 32
+              },
+              Denars: state.Denars + 80,
+              Equipment: state.Equipment + "Sturdy Linen Tunic" + "Woolen Hose" + "Swaybacked Saddle Horse" + "Rusty Sword" + "Hunting Crossbow" + "Bolts" + "Smoked Fish" + "Book (random)"
+            }
+          } else if (state.Adulthood == "Student") {
+            return {
+              ...state,
+                Adulthood: "Student",
+                Attributes: state.Attributes = state.Attributes,
+                Skills: state.Skills = state.Skills,
+                Proficiencies: state.Proficiencies = state.Proficiencies,
+                Denars: state.Denars = state.Denars,
+                Equipment: state.Equipment = state.Equipment
+            }
+          }
         case "Peddler":
+          if (state.Adulthood != "Peddler") {
+            return {
+              ...state,
+              Adulthood: "Peddler",
+              Attributes: {
+                ...state.Attributes,
+                  INT: state.Attributes.INT + 1,
+                  CHA: state.Attributes.CHA + 1
+              },
+              Skills: {
+                ...state.Skills,
+                  Riding: state.Skills.Riding + 1,
+                  Path_Finding: state.Skills.Path_Finding + 1,
+                  Inventory_Management: state.Skills.Inventory_Management + 1,
+                  Trade: state.Skills.Trade + 1
+              },
+              Proficiencies: {
+                ...state.Proficiencies,
+                  Polearm: state.Proficiencies.Polearm + 11
+              },
+              Denars: state.Denars + 90,
+              Equipment: state.Equipment + "Fur Hat" + "Leather Jacket" + "Ragged Leather Boots" + "Leather Gloves" + "Saddle Horses" + "Staff" + "Hunting Crossbow" + "Bolts" + "Smoked Fish" + "Linen" + "Pottery" + "2x Wool" + "Sumpter Horse"
+            }
+          } else if (state.Adulthood == "Peddler") {
+            return {
+              ...state,
+                Adulthood: "Peddler",
+                Attributes: state.Attributes = state.Attributes,
+                Skills: state.Skills = state.Skills,
+                Proficiencies: state.Proficiencies = state.Proficiencies,
+                Denars: state.Denars = state.Denars,
+                Equipment: state.Equipment = state.Equipment
+            }
+          }
         case "Smith":
-        case "Poacher":
-        
-        case "Revenge":
-          return {
-            ...state,
-              Adventuring_Reason: "Revenge",
-              Attributes: {
-                ...state.Attributes,
-                  STR: state.Attributes.STR + 2
-              },
-              Skills: {
-                ...state.Skills,
-                  Power_Strike: state.Skills.Power_Strike + 1
-              },
-          }
-        case "Loss":
-          return {
-            ...state,
-              Adventuring_Reason: "Loss",
-              Attributes: {
-                ...state.Attributes,
-                  STR: state.Attributes.CHA + 2
-              },
-              Skills: {
-                ...state.Skills,
-                  Ironflesh: state.Skills.Ironflesh + 1
-              },
-          }
-        case "Wanderlust":
-          return {
-            ...state,
-              Adventuring_Reason: "Wanderlust",
-              Attributes: {
-                ...state.Attributes,
-                  AGI: state.Attributes.AGI + 2
-              },
-              Skills: {
-                ...state.Skills,
-                  Path_Finding: state.Skills.Path_Finding + 1
-              },
-          }
-        case "Forced Out":
-          return {
-            ...state,
-              Adventuring_Reason: "Forced Out",
+          if (state.Adulthood != "Smith") {
+            return {
+              ...state,
+              Adulthood: "Smith",
               Attributes: {
                 ...state.Attributes,
                   STR: state.Attributes.STR + 1,
@@ -1157,23 +1315,183 @@ export default function Home() {
               },
               Skills: {
                 ...state.Skills,
-                  Weapon_Master: state.Skills.Weapon_Master + 1
+                  Weapon_Master: state.Skills.Weapon_Master + 1,
+                  Tactics: state.Skills.Tactics + 1,
+                  Engineer: state.Skills.Engineer + 1,
+                  Trade: state.Skills.Trade + 1
               },
+              Proficiencies: {
+                ...state.Proficiencies,
+                  One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons + 11
+              },
+              Denars: state.Denars + 100,
+              Equipment: state.Equipment + "Tunic with Vest" + "Ragged Leather Boots" + "Saddle Horse" + "Balanced Sword" + "Hunting Crossbow" + "Bolts" + "Smoked Fish" + "Tools"
+            }
+          } else if (state.Adulthood == "Smith") {
+            return {
+              ...state,
+                Adulthood: "Smith",
+                Attributes: state.Attributes = state.Attributes,
+                Skills: state.Skills = state.Skills,
+                Proficiencies: state.Proficiencies = state.Proficiencies,
+                Denars: state.Denars = state.Denars,
+                Equipment: state.Equipment = state.Equipment
+            }
           }
-        case "Money":
-          return {
-            ...state,
-              Adventuring_Reason: "Money",
+        case "Poacher":
+          if (state.Adulthood != "Poacher") {
+            return {
+              ...state,
+              Adulthood: "Poacher",
               Attributes: {
                 ...state.Attributes,
-                  AGI: state.Attributes.AGI + 1,
-                  INT: state.Attributes.INT + 1
+                  STR: state.Attributes.STR + 1,
+                  AGI: state.Attributes.AGI + 1
               },
               Skills: {
                 ...state.Skills,
-                  Looting: state.Skills.Looting + 1
+                  Power_Draw: state.Skills.Power_Draw + 1,
+                  Athletics: state.Skills.Athletics + 1,
+                  Tracking: state.Skills.Tracking + 1,
+                  Spotting: state.Skills.Spotting + 1
               },
+              Proficiencies: {
+                ...state.Proficiencies,
+                  Polearm: state.Proficiencies.Polearm + 7,
+                  Archery: state.Proficiencies.Archery + 57
+              },
+              Denars: state.Denars + 10,
+              Equipment: state.Equipment + "Rawhide Coat" + "Hide Boots" + "Heavy Sumpter Horse" + "Chipped Axe" + "Hunting Bow" + "Barbed Arrows" + "2x Dried Meat" + "2x Furs"
+            }
+          } else if (state.Adulthood == "Poacher") {
+            return {
+              ...state,
+                Adulthood: "Poacher",
+                Attributes: state.Attributes = state.Attributes,
+                Skills: state.Skills = state.Skills,
+                Proficiencies: state.Proficiencies = state.Proficiencies,
+                Denars: state.Denars = state.Denars,
+                Equipment: state.Equipment = state.Equipment
+            }
           }
+
+        case "Revenge":
+          if (state.Adventuring_Reason != "Revenge") {
+            return {
+              ...state,
+                Adventuring_Reason: "Revenge",
+                Attributes: {
+                  ...state.Attributes,
+                    STR: state.Attributes.STR + 2
+                },
+                Skills: {
+                  ...state.Skills,
+                    Power_Strike: state.Skills.Power_Strike + 1
+                },
+            }
+          } else if (state.Adventuring_Reason == "Revenge") {
+              return {
+                ...state,
+                  Adventuring_Reason: "Revenge",
+                  Attributes: state.Attributes = state.Attributes,
+                  Skills: state.Skills = state.Skills,
+                  Proficiencies: state.Proficiencies = state.Proficiencies
+              }
+            }
+        case "Loss":
+          if (state.Adventuring_Reason != "Loss") {
+            return {
+              ...state,
+                Adventuring_Reason: "Loss",
+                Attributes: {
+                  ...state.Attributes,
+                    STR: state.Attributes.CHA + 2
+                },
+                Skills: {
+                  ...state.Skills,
+                    Ironflesh: state.Skills.Ironflesh + 1
+                },
+            }
+          } else if (state.Adventuring_Reason == "Loss") {
+              return {
+                ...state,
+                  Adventuring_Reason: "Loss",
+                  Attributes: state.Attributes = state.Attributes,
+                  Skills: state.Skills = state.Skills,
+                  Proficiencies: state.Proficiencies = state.Proficiencies
+              }
+            }
+        case "Wanderlust":
+          if (state.Adventuring_Reason != "Wanderlust") {
+            return {
+              ...state,
+                Adventuring_Reason: "Wanderlust",
+                Attributes: {
+                  ...state.Attributes,
+                    AGI: state.Attributes.AGI + 2
+                },
+                Skills: {
+                  ...state.Skills,
+                    Path_Finding: state.Skills.Path_Finding + 1
+                },
+            }
+          } else if (state.Adventuring_Reason == "Wanderlust") {
+              return {
+                ...state,
+                  Adventuring_Reason: "Wanderlust",
+                  Attributes: state.Attributes = state.Attributes,
+                  Skills: state.Skills = state.Skills,
+                  Proficiencies: state.Proficiencies = state.Proficiencies
+              }
+            }
+        case "Forced Out":
+          if (state.Adventuring_Reason != "Forced Out") {
+            return {
+              ...state,
+                Adventuring_Reason: "Forced Out",
+                Attributes: {
+                  ...state.Attributes,
+                    STR: state.Attributes.STR + 1,
+                    INT: state.Attributes.INT + 1
+                },
+                Skills: {
+                  ...state.Skills,
+                    Weapon_Master: state.Skills.Weapon_Master + 1
+                },
+            }
+          } else if (state.Adventuring_Reason == "Forced Out") {
+              return {
+                ...state,
+                  Adventuring_Reason: "Forced Out",
+                  Attributes: state.Attributes = state.Attributes,
+                  Skills: state.Skills = state.Skills,
+                  Proficiencies: state.Proficiencies = state.Proficiencies
+              }
+            }
+        case "Money":
+          if (state.Adventuring_Reason != "Money") {
+            return {
+              ...state,
+                Adventuring_Reason: "Money",
+                Attributes: {
+                  ...state.Attributes,
+                    AGI: state.Attributes.AGI + 1,
+                    INT: state.Attributes.INT + 1
+                },
+                Skills: {
+                  ...state.Skills,
+                    Looting: state.Skills.Looting + 1
+                },
+            }
+          } else if (state.Adventuring_Reason == "Money") {
+              return {
+                ...state,
+                  Adventuring_Reason: "Money",
+                  Attributes: state.Attributes = state.Attributes,
+                  Skills: state.Skills = state.Skills,
+                  Proficiencies: state.Proficiencies = state.Proficiencies
+              }
+            }
     }
   }
   
