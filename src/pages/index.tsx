@@ -961,7 +961,29 @@ export default function Home() {
           }
 
         case "Page":
-          if (state.Early_Life != "Page") {
+          if (state.Early_Life == "Apprentice") {
+            return {
+              ...state,
+              Early_Life: "Page",
+              Attributes: {
+                ...state.Attributes,
+                  INT: state.Attributes.INT - 1,
+                  CHA: state.Attributes.CHA + 1
+              },
+              Skills: {
+                ...state.Skills,
+                  Power_Strike: state.Skills.Power_Strike + 1,
+                  Persuasion: state.Skills.Persuasion + 1,
+                  Engineer: state.Skills.Engineer - 1,
+                  Trade: state.Skills.Trade - 1
+              },
+              Proficiencies: {
+                ...state.Proficiencies,
+                  One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons + 8,
+                  Polearms: state.Proficiencies.Polearms + 3
+              }
+            }
+          } else if (state.Early_Life != "Page") {
             return {
               ...state,
               Early_Life: "Page",
@@ -1494,7 +1516,424 @@ export default function Home() {
             }
     }
   }
+
+  const changeFromNoble = () => {
+    if (state.Father == "Noble") {
+      switch (state.Gender) {
+        case "":
+          return {
+            ...state,
+            Father: "Noble",
+            Attributes: {
+              ...state.Attributes,
+                INT: state.Attributes.INT - 1,
+                CHA: state.Attributes.CHA - 1
+            },
+            Skills: {
+              ...state.Skills,
+                Riding: state.Skills.Riding - 1,
+                Leadership: state.Skills.Leadership - 1
+            },
+            Proficiencies: {
+              ...state.Proficiencies,
+                One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons - 2,
+                Polearms: state.Proficiencies.Polearms - 7
+            },
+            Denars: state.Denars - 100,
+            Renown: state.Renown - 50,
+            Equipment: state.Equipment - "Battered Old Round Shield" - "Banner"
+          }
+        case "Male":
+          return {
+            ...state,
+            Attributes: {
+              ...state.Attributes,
+                INT: state.Attributes.INT - 1,
+                CHA: state.Attributes.CHA - 2
+            },
+            Skills: {
+              ...state.Skills,
+                Riding: state.Skills.Riding - 1,
+                Leadership: state.Skills.Leadership - 1,
+                Power_Strike: state.Skills.Power_Strike - 1,
+                Weapon_Master: state.Skills.Weapon_Master - 1,
+                Tactics: state.Skills.Tactics - 1
+            },
+            Proficiencies: {
+              ...state.Proficiencies,
+                One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons - 2,
+                Polearms: state.Proficiencies.Polearms - 21,
+                Two_Handed_Weapons: state.Proficiencies.Two_Handed_Weapons - 15
+            },
+            Denars: state.Denars - 100,
+            Renown: state.Renown - 100,
+            Honor: state.Honor - 3,
+            Equipment: state.Equipment - "Battered Old Round Shield" - "Banner"
+          }
+        case "Female":
+          return {
+            ...state,
+            Attributes: {
+              ...state.Attributes,
+                INT: state.Attributes.INT - 2,
+                CHA: state.Attributes.CHA - 1
+            },
+            Skills: {
+              ...state.Skills,
+                Riding: state.Skills.Riding - 2,
+                Leadership: state.Skills.Leadership - 1,
+                Wound_Treatment: state.Skills.Wound_Treatment - 1,
+                First_Aid: state.Skills.First_Aid - 1
+            },
+            Proficiencies: {
+              ...state.Proficiencies,
+                One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons - 14,
+                Polearms: state.Proficiencies.Polearms - 7
+            },
+            Denars: state.Denars - 100,
+            Renown: state.Renown - 50,
+            Equipment: state.Equipment - "Battered Old Round Shield" - "Banner"
+          }
+      }
+    }
+  }
+
+  const changeFromMerchant = () => {
+    if (state.Father == "Merchant") {
+      return {
+        ...state,
+        Attributes: {
+          ...state.Attributes,
+            INT: state.Attributes.INT - 2,
+            CHA: state.Attributes.CHA - 1
+        },
+        Skills: {
+          ...state.Skills,
+            Riding: state.Skills.Riding - 1,
+            Inventory_Management: state.Skills.Inventory_Management - 1,
+            Leadership: state.Skills.Leadership - 1,
+            Trade: state.Skills.Trade - 2
+        },
+        Proficiencies: {
+          ...state.Proficiencies,
+            Two_Handed_Weapons: state.Proficiencies.Two_Handed_Weapons - 15,
+            Polearms: state.Proficiencies.Polearms - 7
+        },
+        Denars: state.Denars - 250,
+        Renown: state.Renown - 20
+      }
+    }
+  }
+
+  const changeFromWarrior = () => {
+    if (state.Father == "Warrior") {
+      return {
+        ...state,
+        Attributes: {
+          ...state.Attributes,
+            STR: state.Attributes.STR - 1,
+            AGI: state.Attributes.AGI - 1,
+            CHA: state.Attributes.CHA - 1
+        },
+        Skills: {
+          ...state.Skills,
+            Ironflesh: state.Skills.Ironflesh - 1,
+            Power_Strike: state.Skills.Power_Strike - 1,
+            Weapon_Master: state.Skills.Weapon_Master - 1,
+            Trainer: state.Skills.Trainer - 1,
+            Leadership: state.Skills.Leadership - 1
+        },
+        Proficiencies: {
+          ...state.Proficiencies,
+            One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons - 2,
+            Two_Handed_Weapons: state.Proficiencies.Two_Handed_Weapons - 23,
+            Polearms: state.Proficiencies.Polearms - 33,
+            Throwing: state.Proficiencies.Throwing - 15
+        },
+        Denars: state.Denars - 50,
+        Renown: state.Renown - 10,
+        Equipment: state.Equipment - "Battered Old Round Shield"
+      }
+    }
+  }
+
+  const changeFromHunter = () => {
+    if (state.Father == "Hunter") {
+      return {
+        ...state,
+        Attributes: {
+          ...state.Attributes,
+            STR: state.Attributes.STR - 1,
+            AGI: state.Attributes.AGI - 2
+        },
+        Skills: {
+          ...state.Skills,
+            Power_Draw: state.Skills.Power_Draw - 1,
+            Athletics: state.Skills.Athletics - 1,
+            Tracking: state.Skills.Tracking - 1,
+            Path_Finding: state.Skills.Path_Finding - 1,
+            Spotting: state.Skills.Spotting - 1
+        },
+        Proficiencies: {
+          ...state.Proficiencies,
+            Two_Handed_Weapons: state.Proficiencies.Two_Handed_Weapons - 15,
+            Polearms: state.Proficiencies.Polearms - 7,
+            Archery: state.Proficiencies.Archery - 49
+        },
+        Denars: state.Denars - 30
+      }
+    }
+  }
+
+  const changeFromNomad = () => {
+    if (state.Father == "Nomad") {
+      switch (state.Gender) {
+        case "":
+          return {
+            ...state,
+            Attributes: {
+              ...state.Attributes,
+                STR: state.Attributes.STR - 1,
+                AGI: state.Attributes.AGI - 1,
+                INT: state.Attributes.INT - 1
+            },
+            Skills: {
+              ...state.Skills,
+                Riding: state.Skills.Riding - 2,
+                Path_Finding: state.Skills.Path_Finding - 1,
+            },
+            Proficiencies: {
+              ...state.Proficiencies,
+                One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons - 2,
+                Polearms: state.Proficiencies.Polearms - 7,
+                Archery: state.Proficiencies.Archery - 32,
+                Throwing: state.Proficiencies.Throwing - 7
+            },
+            Denars: state.Denars - 15,
+            Renown: state.Renown - 10,
+            Equipment: state.Equipment - "Battered Plain Cavalry Shield"
+          }
+        case "Male":
+          return {
+            ...state,
+            Attributes: {
+              ...state.Attributes,
+                STR: state.Attributes.STR - 1,
+                AGI: state.Attributes.AGI - 1,
+                INT: state.Attributes.INT - 1
+            },
+            Skills: {
+              ...state.Skills,
+                Riding: state.Skills.Riding - 2,
+                Path_Finding: state.Skills.Path_Finding - 1,
+                Power_Draw: state.Skills.Power_Draw - 1,
+                Horse_Archery: state.Skills.Horse_Archery - 1
+            },
+            Proficiencies: {
+              ...state.Proficiencies,
+                One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons - 2,
+                Polearms: state.Proficiencies.Polearms - 7,
+                Archery: state.Proficiencies.Archery - 49,
+                Throwing: state.Proficiencies.Throwing - 15
+            },
+            Denars: state.Denars - 15,
+            Renown: state.Renown - 20,
+            Equipment: state.Equipment - "Battered Plain Cavalry Shield"
+          }
+        case "Female":
+          return {
+            ...state,
+            Attributes: {
+              ...state.Attributes,
+                STR: state.Attributes.STR - 1,
+                AGI: state.Attributes.AGI - 1,
+                INT: state.Attributes.INT - 1
+            },
+            Skills: {
+              ...state.Skills,
+                Riding: state.Skills.Riding - 2,
+                Path_Finding: state.Skills.Path_Finding - 1,
+                Wound_Treatment: state.Skills.Wound_Treatment - 1,
+                First_Aid: state.Skills.First_Aid - 1
+            },
+            Proficiencies: {
+              ...state.Proficiencies,
+                One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons - 5,
+                Polearms: state.Proficiencies.Polearms - 7,
+                Archery: state.Proficiencies.Archery - 32,
+                Throwing: state.Proficiencies.Throwing - 7
+            },
+            Denars: state.Denars - 20,
+            Renown: state.Renown - 20,
+            Equipment: state.Equipment - "Battered Plain Cavalry Shield"
+          }
+      }
+    }
+  }
   
+  const changeFromThief = () => {
+    if (state.Father == "Thief") {
+      return {
+        ...state,
+        Attributes: {
+          ...state.Attributes,
+            AGI: state.Attributes.AGI - 3
+        },
+        Skills: {
+          ...state.Skills,
+            Power_Throw: state.Skills.Power_Throw - 1,
+            Athletics: state.Skills.Athletics - 2,
+            Looting: state.Skills.Looting - 1,
+            Inventory_Management: state.Skills.Inventory_Management - 1
+        },
+        Proficiencies: {
+          ...state.Proficiencies,
+            One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons - 14,
+            Polearms: state.Proficiencies.Polearms - 7,
+            Throwing: state.Proficiencies.Throwing - 31
+        },
+        Denars: state.Denars - 25,
+        Equipment: state.Equipment - "Throwing Knives"
+      }
+    }
+  }
+
+  const changeFromPage = () => {
+    if (state.Early_Life == "Page") {
+      return {
+        ...state,
+        Attributes: {
+          ...state.Attributes,
+            STR: state.Attributes.STR - 1,
+            CHA: state.Attributes.CHA - 1
+        },
+        Skills: {
+          ...state.Skills,
+            Power_Strike: state.Skills.Power_Strike - 1,
+            Persuasion: state.Skills.Persuasion - 1
+        },
+        Proficiencies: {
+          ...state.Proficiencies,
+            One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons - 8,
+            Polearms: state.Proficiencies.Polearms - 3
+        }
+      }
+    }
+  }
+
+  const changeFromApprentice = () => {
+    if (state.Early_Life == "Apprentice") {
+      return {
+        ...state,
+        Attributes: {
+          ...state.Attributes,
+            STR: state.Attributes.STR - 1,
+            INT: state.Attributes.INT - 1
+        },
+        Skills: {
+          ...state.Skills,
+            Engineer: state.Skills.Engineer - 1,
+            Trade: state.Skills.Trade - 1
+        }
+      }
+    }
+  }
+
+  const changeFromAssistant = () => {
+    if (state.Early_Life == "Assistant") {
+      return {
+        ...state,
+        Attributes: {
+          ...state.Attributes,
+            INT: state.Attributes.INT - 1,
+            CHA: state.Attributes.CHA - 1
+        },
+        Skills: {
+          ...state.Skills,
+            Inventory_Management: state.Skills.Inventory_Management - 1,
+            Trade: state.Skills.Trade - 1
+        }
+      }
+    }
+  }
+
+  const changeFromUrchin = () => {
+    if (state.Early_Life == "Urchin") {
+      return {
+        ...state,
+        Attributes: {
+          ...state.Attributes,
+            AGI: state.Attributes.AGI - 1,
+            INT: state.Attributes.INT - 1
+        },
+        Skills: {
+          ...state.Skills,
+            Looting: state.Skills.Looting - 1,
+            Spotting: state.Skills.Spotting - 1
+        },
+        Proficiencies: {
+          ...state.Proficiencies,
+            One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons - 8,
+            Throwing: state.Proficiencies.Throwing - 7
+        }
+      }
+    }
+  }
+
+  const changeFromSteppeChild = () => {
+    if (state.Early_Life == "Steppe Child") {
+      return {
+        ...state,
+        Attributes: {
+          ...state.Attributes,
+            STR: state.Attributes.STR - 1,
+            AGI: state.Attributes.AGI - 1
+        },
+        Skills: {
+          ...state.Skills,
+            Power_Throw: state.Skills.Power_Throw - 1,
+            Horse_Archery: state.Skills.Horse_Archery - 1
+        },
+        Proficiencies: {
+          ...state.Proficiencies,
+            Archery: state.Proficiencies.Archery - 24,
+        },
+        Renown: state.Renown - 5
+      }
+    }
+  }
+
+  const changeFromSquire = () => {
+    if (state.Adulthood == "Squire") {
+      return {
+        ...state,
+        Attributes: {
+          ...state.Attributes,
+            STR: state.Attributes.STR - 1,
+            AGI: state.Attributes.AGI - 1
+        },
+        Skills: {
+          ...state.Skills,
+            Power_Strike: state.Skills.Power_Strike - 1,
+            Weapon_Master: state.Skills.Weapon_Master - 1,
+            Riding: state.Skills.Riding - 1,
+            Leadership: state.Skills.Leadership - 1
+        },
+        Proficiencies: {
+          ...state.Proficiencies,
+            One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons - 23,
+            Two_Handed_Weapons: state.Proficiencies.Two_Handed_Weapons - 38,
+            Polearms: state.Proficiencies.Polearms - 22,
+            Archery: state.Proficiencies.Archery - 16,
+            Crossbows: state.Proficiencies.Crossbows - 16,
+            Throwing: state.Proficiencies.Throwing - 14
+        },
+        Denars: state.Denars - 20,
+        Equipment: state.Equipment - "Ragged Leather Jerkin" - "Tattered Leather Boots" - "Swaybacked Saddle Horse" + "Rusty Sword" - "Hunting Crossbow" - "Bolts" - "Smoked Fish"
+      }
+    }
+  }
+
   const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
