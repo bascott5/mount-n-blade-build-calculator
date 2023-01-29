@@ -1929,11 +1929,48 @@ export default function Home() {
             Throwing: state.Proficiencies.Throwing - 14
         },
         Denars: state.Denars - 20,
-        Equipment: state.Equipment - "Ragged Leather Jerkin" - "Tattered Leather Boots" - "Swaybacked Saddle Horse" + "Rusty Sword" - "Hunting Crossbow" - "Bolts" - "Smoked Fish"
+        Equipment: state.Equipment - "Ragged Leather Jerkin" - "Tattered Leather Boots" - "Swaybacked Saddle Horse" - "Rusty Sword" - "Hunting Crossbow" - "Bolts" - "Smoked Fish"
       }
     }
   }
 
+  const changeFromLadyInWaiting = () => {
+    switch (state.Gender) {
+      case "":
+        return {
+          ...state,
+            Attributes: state.Attributes = state.Attributes,
+            Skills: state.Skills = state.Skills,
+            Proficiencies: state.Proficiencies = state.Proficiencies,
+            Denars: state.Denars = state.Denars,
+            Equipment: state.Equipment = state.Equipment
+        }
+      case "Female":
+        if (state.Adulthood == "Lady in Waiting") {
+          return {
+            ...state,
+            Attributes: {
+              ...state.Attributes,
+                INT: state.Attributes.INT - 1,
+                CHA: state.Attributes.CHA - 1
+            },
+            Skills: {
+              ...state.Skills,
+                Riding: state.Skills.Riding - 1,
+                Wound_Treatment: state.Skills.Wound_Treatment - 1,
+                Persuasion: state.Skills.Persuasion - 2,
+            },
+            Proficiencies: {
+              ...state.Proficiencies,
+                One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons - 8,
+                Crossbows: state.Proficiencies.Crossbows - 24
+            },
+            Denars: state.Denars - 100,
+            Equipment: state.Equipment - "Sturdy Woolen Hood" - "Sturdy Woolen Dress" - "Spirited Courser" - "Dagger" - "Hunting Crossbow" - "Bolts" - "Smoked Fish"
+          }
+        }
+    }
+  }
   const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
