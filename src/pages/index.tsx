@@ -10,7 +10,6 @@ import Attributes from '@/components/attributes';
 import Proficiencies from '@/components/proficiencies';
 import Skills from '@/components/skills';
 import Dropdown from '@/components/dropdown';
-import DropdownButton from '@/components/dropdownbuttons';
 
 //TODO make a function for each attribute increase
 
@@ -198,7 +197,7 @@ export default function Home() {
             }
           }
           case "dec_STR":
-            if (state.Attributes.STR > 5){
+            if (state.Attributes.STR > state.Limits.STR_Min){
               return {
                 ...state,
                 Attributes: {
@@ -217,7 +216,7 @@ export default function Home() {
                 }
               }
             case "dec_AGI":
-              if (state.Attributes.AGI > 5){
+              if (state.Attributes.AGI > state.Limits.AGI_Min){
                 return {
                   ...state,
                   Attributes: {
@@ -236,7 +235,7 @@ export default function Home() {
                 }
               }
             case "dec_INT":
-              if (state.Attributes.INT > 4){
+              if (state.Attributes.INT > state.Limits.INT_Min){
                 return {
                   ...state,
                   Attributes: {
@@ -255,7 +254,7 @@ export default function Home() {
                 }
               }
               case "dec_CHA":
-                if (state.Attributes.CHA > 5){
+                if (state.Attributes.CHA > state.Limits.CHA_Min){
                   return {
                     ...state,
                     Attributes: {
@@ -614,7 +613,14 @@ export default function Home() {
         }
 
         case "Noble":
-          if (state.Father != "Noble") {
+          if (state.Father == "Merchant") {
+            changeFromMerchant();
+          }
+          /*changeFromWarrior();
+          changeFromHunter();
+          changeFromNomad();
+          changeFromThief();*/
+          else if (state.Father != "Noble") {
             switch (state.Gender) {
               case "":
                 return {
@@ -637,7 +643,7 @@ export default function Home() {
                   },
                   Denars: state.Denars + 100,
                   Renown: state.Renown + 50,
-                  Equipment: state.Equipment + "Battered Old Round Shield" + "Banner"
+                  Equipment: state.Equipment.push("Battered Old Round Shield", "Banner")
                 }
               case "Male":
                 return {
@@ -665,7 +671,7 @@ export default function Home() {
                   Denars: state.Denars + 100,
                   Renown: state.Renown + 100,
                   Honor: state.Honor + 3,
-                  Equipment: state.Equipment + "Battered Old Round Shield" + "Banner"
+                  Equipment: state.Equipment.push("Battered Old Round Shield", "Banner")
                 }
               case "Female":
                 return {
@@ -708,6 +714,11 @@ export default function Home() {
           }
 
         case "Merchant":
+          changeFromNoble();
+          changeFromWarrior();
+          changeFromHunter();
+          changeFromNomad();
+          changeFromThief();
           if (state.Father != "Merchant") {
             return {
               ...state,
@@ -745,6 +756,11 @@ export default function Home() {
           }
 
         case "Warrior":
+          changeFromNoble();
+          changeFromMerchant();
+          changeFromHunter();
+          changeFromNomad();
+          changeFromThief();
           if (state.Father != "Warrior") {
             return {
               ...state,
@@ -788,6 +804,11 @@ export default function Home() {
           }
           
         case "Hunter":
+          changeFromNoble();
+          changeFromMerchant();
+          changeFromWarrior();
+          changeFromNomad();
+          changeFromThief();
           if (state.Father != "Hunter") {
             return {
               ...state,
@@ -825,6 +846,11 @@ export default function Home() {
           }
 
         case "Nomad":
+          changeFromNoble();
+          changeFromMerchant();
+          changeFromWarrior();
+          changeFromHunter();
+          changeFromThief();
           if (state.Father != "Nomad") {
             switch (state.Gender) {
               case "":
@@ -924,6 +950,11 @@ export default function Home() {
           }
 
         case "Thief":
+          changeFromNoble();
+          changeFromMerchant();
+          changeFromWarrior();
+          changeFromHunter();
+          changeFromNomad();
           if (state.Father != "Thief") {
             return {
               ...state,
@@ -1541,7 +1572,7 @@ export default function Home() {
             },
             Denars: state.Denars - 100,
             Renown: state.Renown - 50,
-            Equipment: state.Equipment - "Battered Old Round Shield" - "Banner"
+            //Equipment: state.Equipment - "Battered Old Round Shield" - "Banner"
           }
         case "Male":
           return {
@@ -1568,7 +1599,7 @@ export default function Home() {
             Denars: state.Denars - 100,
             Renown: state.Renown - 100,
             Honor: state.Honor - 3,
-            Equipment: state.Equipment - "Battered Old Round Shield" - "Banner"
+            //Equipment: state.Equipment - "Battered Old Round Shield" - "Banner"
           }
         case "Female":
           return {
@@ -1592,7 +1623,7 @@ export default function Home() {
             },
             Denars: state.Denars - 100,
             Renown: state.Renown - 50,
-            Equipment: state.Equipment - "Battered Old Round Shield" - "Banner"
+            //Equipment: state.Equipment - "Battered Old Round Shield" - "Banner"
           }
       }
     }
@@ -1652,7 +1683,7 @@ export default function Home() {
         },
         Denars: state.Denars - 50,
         Renown: state.Renown - 10,
-        Equipment: state.Equipment - "Battered Old Round Shield"
+        //Equipment: state.Equipment - "Battered Old Round Shield"
       }
     }
   }
@@ -1711,7 +1742,7 @@ export default function Home() {
             },
             Denars: state.Denars - 15,
             Renown: state.Renown - 10,
-            Equipment: state.Equipment - "Battered Plain Cavalry Shield"
+            //Equipment: state.Equipment - "Battered Plain Cavalry Shield"
           }
         case "Male":
           return {
@@ -1738,7 +1769,7 @@ export default function Home() {
             },
             Denars: state.Denars - 15,
             Renown: state.Renown - 20,
-            Equipment: state.Equipment - "Battered Plain Cavalry Shield"
+            //Equipment: state.Equipment - "Battered Plain Cavalry Shield"
           }
         case "Female":
           return {
@@ -1765,7 +1796,7 @@ export default function Home() {
             },
             Denars: state.Denars - 20,
             Renown: state.Renown - 20,
-            Equipment: state.Equipment - "Battered Plain Cavalry Shield"
+            //Equipment: state.Equipment - "Battered Plain Cavalry Shield"
           }
       }
     }
@@ -1793,7 +1824,7 @@ export default function Home() {
             Throwing: state.Proficiencies.Throwing - 31
         },
         Denars: state.Denars - 25,
-        Equipment: state.Equipment - "Throwing Knives"
+        //Equipment: state.Equipment - "Throwing Knives"
       }
     }
   }
@@ -1929,7 +1960,7 @@ export default function Home() {
             Throwing: state.Proficiencies.Throwing - 14
         },
         Denars: state.Denars - 20,
-        Equipment: state.Equipment - "Ragged Leather Jerkin" - "Tattered Leather Boots" - "Swaybacked Saddle Horse" - "Rusty Sword" - "Hunting Crossbow" - "Bolts" - "Smoked Fish"
+        //Equipment: state.Equipment - "Ragged Leather Jerkin" - "Tattered Leather Boots" - "Swaybacked Saddle Horse" - "Rusty Sword" - "Hunting Crossbow" - "Bolts" - "Smoked Fish"
       }
     }
   }
@@ -1966,15 +1997,230 @@ export default function Home() {
                 Crossbows: state.Proficiencies.Crossbows - 24
             },
             Denars: state.Denars - 100,
-            Equipment: state.Equipment - "Sturdy Woolen Hood" - "Sturdy Woolen Dress" - "Spirited Courser" - "Dagger" - "Hunting Crossbow" - "Bolts" - "Smoked Fish"
+            //Equipment: state.Equipment - "Sturdy Woolen Hood" - "Sturdy Woolen Dress" - "Spirited Courser" - "Dagger" - "Hunting Crossbow" - "Bolts" - "Smoked Fish"
           }
         }
     }
   }
+
+  const changeFromTroubadour = () => {
+    if (state.Adulthood == "Troubadour") {
+      return {
+        ...state,
+        Attributes: {
+          ...state.Attributes,
+            CHA: state.Attributes.CHA - 2
+        },
+        Skills: {
+          ...state.Skills,
+            Weapon_Master: state.Skills.Weapon_Master - 1,
+            Path_Finding: state.Skills.Path_Finding - 1,
+            Persuasion: state.Skills.Persuasion - 1,
+            Leadership: state.Skills.Leadership - 1
+        },
+        Proficiencies: {
+          ...state.Proficiencies,
+            One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons - 19,
+            Crossbows: state.Proficiencies.Crossbows - 16
+        },
+        Denars: state.Denars - 80,
+        //Equipment: state.Equipment - "Sturdy Tabard" - "Ragged Leather Boots" - "Swaybacked Saddle Horse" - "Rusty Sword" - "Hunting Crossbow" - "Bolts" - "Smoked Fish"
+      }
+    }
+  }
+
+  const changeFromStudent = () => {
+    if (state.Adulthood == "Student") {
+      return {
+        ...state,
+        Attributes: {
+          ...state.Attributes,
+            INT: state.Attributes.INT - 2
+        },
+        Skills: {
+          ...state.Skills,
+            Weapon_Master: state.Skills.Weapon_Master - 1,
+            Wound_Treatment: state.Skills.Wound_Treatment - 1,
+            Surgery: state.Skills.Surgery - 1,
+            Persuasion: state.Skills.Persuasion - 1
+        },
+        Proficiencies: {
+          ...state.Proficiencies,
+            One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons - 15,
+            Crossbows: state.Proficiencies.Crossbows - 32
+        },
+        Denars: state.Denars - 80,
+        //Equipment: state.Equipment - "Sturdy Linen Tunic" - "Woolen Hose" - "Swaybacked Saddle Horse" - "Rusty Sword" - "Hunting Crossbow" - "Bolts" - "Smoked Fish" - "Book (random)"
+      }
+    }
+  }
+
+  const changeFromPeddler = () => {
+    if (state.Adulthood == "Peddler") {
+      return {
+        ...state,
+        Attributes: {
+          ...state.Attributes,
+            INT: state.Attributes.INT - 1,
+            CHA: state.Attributes.CHA - 1
+        },
+        Skills: {
+          ...state.Skills,
+            Riding: state.Skills.Riding - 1,
+            Path_Finding: state.Skills.Path_Finding - 1,
+            Inventory_Management: state.Skills.Inventory_Management - 1,
+            Trade: state.Skills.Trade - 1
+        },
+        Proficiencies: {
+          ...state.Proficiencies,
+            Polearm: state.Proficiencies.Polearm - 11
+        },
+        Denars: state.Denars - 90,
+        //Equipment: state.Equipment - "Fur Hat" - "Leather Jacket" - "Ragged Leather Boots" - "Leather Gloves" - "Saddle Horses" - "Staff" - "Hunting Crossbow" - "Bolts" - "Smoked Fish" - "Linen" - "Pottery" - "2x Wool" - "Sumpter Horse"
+      }
+    }
+  }
+
+  const changeFromSmith = () => {
+    if (state.Adulthood == "Smith") {
+      return {
+        ...state,
+        Attributes: {
+          ...state.Attributes,
+            STR: state.Attributes.STR - 1,
+            INT: state.Attributes.INT - 1
+        },
+        Skills: {
+          ...state.Skills,
+            Weapon_Master: state.Skills.Weapon_Master - 1,
+            Tactics: state.Skills.Tactics - 1,
+            Engineer: state.Skills.Engineer - 1,
+            Trade: state.Skills.Trade - 1
+        },
+        Proficiencies: {
+          ...state.Proficiencies,
+            One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons - 11
+        },
+        Denars: state.Denars - 100,
+        //Equipment: state.Equipment - "Tunic with Vest" - "Ragged Leather Boots" - "Saddle Horse" - "Balanced Sword" - "Hunting Crossbow" - "Bolts" - "Smoked Fish" - "Tools"
+      }
+    }
+  }
+
+  const changeFromPoacher = () => {
+    if (state.Adulthood == "Poacher") {
+      return {
+        ...state,
+        Attributes: {
+          ...state.Attributes,
+            STR: state.Attributes.STR - 1,
+            AGI: state.Attributes.AGI - 1
+        },
+        Skills: {
+          ...state.Skills,
+            Power_Draw: state.Skills.Power_Draw - 1,
+            Athletics: state.Skills.Athletics - 1,
+            Tracking: state.Skills.Tracking - 1,
+            Spotting: state.Skills.Spotting - 1
+        },
+        Proficiencies: {
+          ...state.Proficiencies,
+            Polearm: state.Proficiencies.Polearm - 7,
+            Archery: state.Proficiencies.Archery - 57
+        },
+        Denars: state.Denars - 10,
+        //Equipment: state.Equipment.filter((str: string) => str == "Rawhide Coat" + "Hide Boots" + "Heavy Sumpter Horse" + "Chipped Axe" + "Hunting Bow" + "Barbed Arrows" + "2x Dried Meat" + "2x Furs")
+      }
+    }
+  }
+
+  const changeFromRevenge = () => {
+    if (state.Adventuring_Reason == "Revenge") {
+      return {
+        ...state,
+          Attributes: {
+            ...state.Attributes,
+              STR: state.Attributes.STR - 2
+          },
+          Skills: {
+            ...state.Skills,
+              Power_Strike: state.Skills.Power_Strike - 1
+          },
+      }
+    }
+  }
+
+  const changeFromLoss = () => {
+    if (state.Adventuring_Reason == "Loss") {
+      return {
+        ...state,
+          Attributes: {
+            ...state.Attributes,
+              STR: state.Attributes.CHA - 2
+          },
+          Skills: {
+            ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh - 1
+          },
+      }
+    }
+  }
+
+  const changeFromWanderlust = () => {
+    if (state.Adventuring_Reason == "Wanderlust") {
+      return {
+        ...state,
+          Attributes: {
+            ...state.Attributes,
+              AGI: state.Attributes.AGI - 2
+          },
+          Skills: {
+            ...state.Skills,
+              Path_Finding: state.Skills.Path_Finding - 1
+          },
+      }
+    }
+  }
+
+  const changeFromForcedOut = () => {
+    if (state.Adventuring_Reason == "Forced Out") {
+      return {
+        ...state,
+          Attributes: {
+            ...state.Attributes,
+              STR: state.Attributes.STR - 1,
+              INT: state.Attributes.INT - 1
+          },
+          Skills: {
+            ...state.Skills,
+              Weapon_Master: state.Skills.Weapon_Master - 1
+          },
+      }
+    }
+  }
+
+  const changeFromMoney = () => {
+    if (state.Adventuring_Reason == "Money") {
+      return {
+        ...state,
+          Attributes: {
+            ...state.Attributes,
+              AGI: state.Attributes.AGI - 1,
+              INT: state.Attributes.INT - 1
+          },
+          Skills: {
+            ...state.Skills,
+              Looting: state.Skills.Looting - 1
+          },
+      }
+    }
+  }
+  
   const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
     <context.Provider value={{contextState: state, contextDispatch: dispatch}}>
+      {state.Equipment}
       <Dropdown>
         <div>
             <p>Gender</p>
