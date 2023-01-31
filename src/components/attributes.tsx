@@ -1,10 +1,6 @@
 import { useContext } from 'react';
 import { context } from '../pages/index';
 
-interface test {
-    [keys: string]: number
-  }
-
 export default function Attributes() {
     const stateContext = useContext(context);
     return (

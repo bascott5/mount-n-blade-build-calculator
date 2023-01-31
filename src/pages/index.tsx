@@ -10,6 +10,7 @@ import Attributes from '@/components/attributes';
 import Proficiencies from '@/components/proficiencies';
 import Skills from '@/components/skills';
 import Dropdown from '@/components/dropdown';
+import App from '@/pages/mnb_calculator'
 
 //TODO make a function for each attribute increase
 
@@ -115,11 +116,6 @@ export const initialState = {
 export default function Home() {
   const reducer = (state: any, action: string) => {
     switch(action) {
-      //ATTRIBUTES
-      /*case "inc_Attributes":
-        return {
-          ...state, Attributes: Object.entries(Attributes!).reduce((sum, [keys, value]) => ({...sum, [keys]: value + 1}))
-        }*/
       case "inc_STR":
         if (state.Attribute_Points > 0){
           return {
@@ -615,12 +611,15 @@ export default function Home() {
         case "Noble":
           if (state.Father == "Merchant") {
             changeFromMerchant();
-          }
-          /*changeFromWarrior();
-          changeFromHunter();
-          changeFromNomad();
-          changeFromThief();*/
-          else if (state.Father != "Noble") {
+          } else if (state.Father == "Warrior") {
+            changeFromWarrior();
+          } else if (state.Father == "Hunter") {
+            changeFromHunter();
+          } else if (state.Father == "Nomad") {
+            changeFromNomad();
+          } else if (state.Father == "Thief") {
+            changeFromThief();
+          } else if (state.Father != "Noble") {
             switch (state.Gender) {
               case "":
                 return {
@@ -714,12 +713,17 @@ export default function Home() {
           }
 
         case "Merchant":
-          changeFromNoble();
-          changeFromWarrior();
-          changeFromHunter();
-          changeFromNomad();
-          changeFromThief();
-          if (state.Father != "Merchant") {
+          if (state.Father == "Noble") {
+            changeFromNoble();
+          } else if (state.Father == "Warrior") {
+            changeFromWarrior();
+          } else if (state.Father == "Hunter") {
+            changeFromHunter();
+          } else if (state.Father == "Nomad") {
+            changeFromNomad();
+          } else if (state.Father == "Thief") {
+            changeFromThief();
+          } else if (state.Father != "Merchant") {
             return {
               ...state,
               Father: "Merchant",
@@ -756,12 +760,17 @@ export default function Home() {
           }
 
         case "Warrior":
-          changeFromNoble();
-          changeFromMerchant();
-          changeFromHunter();
-          changeFromNomad();
-          changeFromThief();
-          if (state.Father != "Warrior") {
+          if (state.Father == "Noble") {
+            changeFromNoble();
+          } else if (state.Father == "Merchant") {
+            changeFromMerchant();
+          } else if (state.Father == "Hunter") {
+            changeFromHunter();
+          } else if (state.Father == "Nomad") {
+            changeFromNomad();
+          } else if (state.Father == "Thief") {
+            changeFromThief();
+          } else if (state.Father != "Warrior") {
             return {
               ...state,
               Father: "Warrior",
@@ -804,12 +813,17 @@ export default function Home() {
           }
           
         case "Hunter":
-          changeFromNoble();
-          changeFromMerchant();
-          changeFromWarrior();
-          changeFromNomad();
-          changeFromThief();
-          if (state.Father != "Hunter") {
+          if (state.Father == "Noble") {
+            changeFromNoble();
+          } else if (state.Father == "Merchant") {
+            changeFromMerchant();
+          } else if (state.Father == "Warrior") {
+            changeFromWarrior();
+          } else if (state.Father == "Nomad") {
+            changeFromNomad();
+          } else if (state.Father == "Thief") {
+            changeFromThief();
+          } else if (state.Father != "Hunter") {
             return {
               ...state,
               Father: "Hunter",
@@ -846,12 +860,17 @@ export default function Home() {
           }
 
         case "Nomad":
-          changeFromNoble();
-          changeFromMerchant();
-          changeFromWarrior();
-          changeFromHunter();
-          changeFromThief();
-          if (state.Father != "Nomad") {
+          if (state.Father == "Noble") {
+            changeFromNoble();
+          } else if (state.Father == "Merchant") {
+            changeFromMerchant();
+          } else if (state.Father == "Warrior") {
+            changeFromWarrior();
+          } else if (state.Father == "Hunter") {
+            changeFromHunter();
+          } else if (state.Father == "Thief") {
+            changeFromThief();
+          } else if (state.Father != "Nomad") {
             switch (state.Gender) {
               case "":
                 return {
@@ -950,11 +969,17 @@ export default function Home() {
           }
 
         case "Thief":
-          changeFromNoble();
-          changeFromMerchant();
-          changeFromWarrior();
-          changeFromHunter();
-          changeFromNomad();
+          if (state.Father == "Noble") {
+            changeFromNoble();
+          } else if (state.Father == "Merchant") {
+            changeFromMerchant();
+          } else if (state.Father == "Warrior") {
+            changeFromWarrior();
+          } else if (state.Father == "Hunter") {
+            changeFromHunter();
+          } else if (state.Father == "Nomad") {
+            changeFromNomad();
+          }
           if (state.Father != "Thief") {
             return {
               ...state,
