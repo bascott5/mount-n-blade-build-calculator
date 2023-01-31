@@ -11,6 +11,7 @@ import Proficiencies from '@/components/proficiencies';
 import Skills from '@/components/skills';
 import Dropdown from '@/components/dropdown';
 import App from '@/pages/mnb_calculator'
+import { title } from 'process';
 
 //TODO make a function for each attribute increase
 
@@ -207,7 +208,7 @@ export default function Home() {
                   ...state,
                   Attributes: {
                     ...state.Attributes,
-                    STR: state.Attributes.STR = 5
+                    STR: state.Attributes.STR = state.Attributes.STR
                   }
                 }
               }
@@ -226,7 +227,7 @@ export default function Home() {
                   ...state,
                   Attributes: {
                     ...state.Attributes,
-                    AGI: state.Attributes.AGI = 5
+                    AGI: state.Attributes.AGI = state.Attributes.AGI
                   }
                 }
               }
@@ -245,7 +246,7 @@ export default function Home() {
                   ...state,
                   Attributes: {
                     ...state.Attributes,
-                    INT: state.Attributes.INT = 4
+                    INT: state.Attributes.INT = state.Attributes.INT
                   }
                 }
               }
@@ -264,13 +265,14 @@ export default function Home() {
                   ...state,
                   Attributes: {
                     ...state.Attributes,
-                    CHA: state.Attributes.CHA = 5
+                    CHA: state.Attributes.CHA = state.Attributes.CHA
                   }
                 }
               }
 
       //PROFICIENCIES
       case "inc_One_Handed_Weapons":
+        if (state.Proficiency_Points > 0) {
           return {
             ...state,
             Proficiencies: {
@@ -279,7 +281,17 @@ export default function Home() {
             },
             Proficiency_Points: state.Proficiency_Points - 1
           }
+        } else {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons = state.Proficiencies.One_Handed_Weapons
+            }
+          }
+        }
       case "inc_Two_Handed_Weapons":
+        if (state.Proficiency_Points > 0) {
           return {
             ...state,
             Proficiencies: {
@@ -288,7 +300,17 @@ export default function Home() {
             },
             Proficiency_Points: state.Proficiency_Points - 1
           }
+        } else {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Two_Handed_Weapons: state.Proficiencies.Two_Handed_Weapons = state.Proficiencies.Two_Handed_Weapons
+            }
+          }
+        }
       case "inc_Polearms":
+        if (state.Proficiency_Points > 0) {
           return {
             ...state,
             Proficiencies: {
@@ -297,7 +319,17 @@ export default function Home() {
             },
             Proficiency_Points: state.Proficiency_Points - 1
           }
+        } else {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Polearms: state.Proficiencies.Polearms = state.Proficiencies.Polearms
+            }
+          }
+        }
       case "inc_Archery":
+        if (state.Proficiency_Points > 0) {
           return {
             ...state,
             Proficiencies: {
@@ -306,7 +338,17 @@ export default function Home() {
             },
             Proficiency_Points: state.Proficiency_Points - 1
           }
+        } else {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Archery: state.Proficiencies.Archery = state.Proficiencies.Archery
+            }
+          }
+        }
       case "inc_Crossbows":
+        if (state.Proficiency_Points > 0) {
           return {
             ...state,
             Proficiencies: {
@@ -315,18 +357,152 @@ export default function Home() {
             },
             Proficiency_Points: state.Proficiency_Points - 1
           }
-      case "inc_Throwing":
+        } else {
           return {
             ...state,
             Proficiencies: {
               ...state.Proficiencies,
-              Throwing: state.Proficiencies.Throwing + 1
+              Crossbows: state.Proficiencies.Crossbows = state.Proficiencies.Crossbows
+            }
+          }
+        }
+      case "inc_Throwing":
+        if (state.Proficiency_Points > 0) {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Throwing: state.Proficiencies.Throwing + 1  
             },
             Proficiency_Points: state.Proficiency_Points - 1
           }
+        } else {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Throwing: state.Proficiencies.Throwing = state.Proficiencies.Throwing
+            }
+          }
+        }
+        case "dec_One_Handed_Weapons":
+        if (state.Proficiencies.One_Handed_Weapons > state.Limits.One_Handed_Weapons_Min) {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons - 1
+            },
+            Proficiency_Points: state.Proficiency_Points + 1
+          }
+        } else {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              One_Handed_Weapons: state.Proficiencies.One_Handed_Weapons = state.Proficiencies.One_Handed_Weapons
+            }
+          }
+        }
+      case "dec_Two_Handed_Weapons":
+        if (state.Proficiencies.Two_Handed_Weapons > state.Limits.Two_Handed_Weapons_Min) {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Two_Handed_Weapons: state.Proficiencies.Two_Handed_Weapons - 1
+            },
+            Proficiency_Points: state.Proficiency_Points + 1
+          }
+        } else {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Two_Handed_Weapons: state.Proficiencies.Two_Handed_Weapons = state.Proficiencies.Two_Handed_Weapons
+            }
+          }
+        }
+      case "dec_Polearms":
+        if (state.Proficiencies.Polearms > state.Limits.Polearms_Min) {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Polearms: state.Proficiencies.Polearms - 1
+            },
+            Proficiency_Points: state.Proficiency_Points + 1
+          }
+        } else {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Polearms: state.Proficiencies.Polearms = state.Proficiencies.Polearms
+            }
+          }
+        }
+      case "dec_Archery":
+        if (state.Proficiencies.Archery > state.Limits.Archery_Min) {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Archery: state.Proficiencies.Archery - 1
+            },
+            Proficiency_Points: state.Proficiency_Points + 1
+          }
+        } else {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Archery: state.Proficiencies.Archery = state.Proficiencies.Archery
+            }
+          }
+        }
+      case "dec_Crossbows":
+        if (state.Proficiencies.Crossbows > state.Limits.Crossbows_Min) {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Crossbows: state.Proficiencies.Crossbows - 1
+            },
+            Proficiency_Points: state.Proficiency_Points + 1
+          }
+        } else {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Crossbows: state.Proficiencies.Crossbows = state.Proficiencies.Crossbows
+            }
+          }
+        }
+      case "dec_Throwing":
+        if (state.Proficiencies.Throwing > state.Limits.Throwing_Min) {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Throwing: state.Proficiencies.Throwing - 1  
+            },
+            Proficiency_Points: state.Proficiency_Points + 1
+          }
+        } else {
+          return {
+            ...state,
+            Proficiencies: {
+              ...state.Proficiencies,
+              Throwing: state.Proficiencies.Throwing = state.Proficiencies.Throwing
+            }
+          }
+        }
 
       //SKILLS
       case "inc_Ironflesh":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
@@ -334,213 +510,908 @@ export default function Home() {
               Ironflesh: state.Skills.Ironflesh + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Ironflesh: state.Skills.Ironflesh = state.Skills.Ironflesh
+              }
+            }
           }
       case "inc_Power_Strike":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Power_Strike: state.Skills.Power_Strike + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Power_Strike: state.Skills.Power_Strike = state.Skills.Power_Strike
+              }
+            }
           }
       case "inc_Power_Throw":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Power_Throw: state.Skills.Power_Throw + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Power_Throw: state.Skills.Power_Throw = state.Skills.Power_Throw
+              }
+            }
           }
       case "inc_Power_Draw":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Power_Draw: state.Skills.Power_Draw + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Power_Draw: state.Skills.Power_Draw = state.Skills.Power_Draw
+              }
+            }
           }
       case "inc_Weapon_Master":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Weapon_Master: state.Skills.Weapon_Master + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Weapon_Master: state.Skills.Weapon_Master = state.Skills.Weapon_Master
+              }
+            }
           }
       case "inc_Shield":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Shield: state.Skills.Shield + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Shield: state.Skills.Shield = state.Skills.Shield
+              }
+            }
           }
       case "inc_Athletics":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Athletics: state.Skills.Athletics + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Athletics: state.Skills.Athletics = state.Skills.Athletics
+              }
+            }
           }
       case "inc_Riding":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Riding: state.Skills.Riding + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Riding: state.Skills.Riding = state.Skills.Riding
+              }
+            }
           }
       case "inc_Horse_Archery":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Horse_Archery: state.Skills.Horse_Archery + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Horse_Archery: state.Skills.Horse_Archery = state.Skills.Horse_Archery
+              }
+            }
           }
       case "inc_Looting":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Looting: state.Skills.Looting + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Looting: state.Skills.Looting = state.Skills.Looting
+              }
+            }
           }
       case "inc_Trainer":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Trainer: state.Skills.Trainer + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Trainer: state.Skills.Trainer = state.Skills.Trainer
+              }
+            }
           }
       case "inc_Tracking":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Tracking: state.Skills.Tracking + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Tracking: state.Skills.Tracking = state.Skills.Tracking
+              }
+            }
           }
       case "inc_Tactics":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Tactics: state.Skills.Tactics + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Tactics: state.Skills.Tactics = state.Skills.Tactics
+              }
+            }
           }
       case "inc_Path_Finding":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Path_Finding: state.Skills.Path_Finding + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Path_Finding: state.Skills.Path_Finding = state.Skills.Path_Finding
+              }
+            }
           }
       case "inc_Spotting":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Spotting: state.Skills.Spotting + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Spotting: state.Skills.Spotting = state.Skills.Spotting
+              }
+            }
           }
       case "inc_Inventory_Management":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Inventory_Management: state.Skills.Inventory_Management + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Inventory_Management: state.Skills.Inventory_Management = state.Skills.Inventory_Management
+              }
+            }
           }
       case "inc_Wound_Treatment":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Wound_Treatment: state.Skills.Wound_Treatment + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Wound_Treatment: state.Skills.Wound_Treatment = state.Skills.Wound_Treatment
+              }
+            }
           }
       case "inc_Surgery":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Surgery: state.Skills.Surgery + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Surgery: state.Skills.Surgery = state.Skills.Surgery
+              }
+            }
           }
       case "inc_First_Aid":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              First_Aid: state.Skills.First_Aid + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                First_Aid: state.Skills.First_Aid = state.Skills.First_Aid
+              }
+            }
           }
       case "inc_Engineer":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Engineer: state.Skills.Engineer + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Engineer: state.Skills.Engineer = state.Skills.Engineer
+              }
+            }
           }
       case "inc_Persuasion":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Persuasion: state.Skills.Persuasion + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Persuasion: state.Skills.Persuasion = state.Skills.Persuasion
+              }
+            }
           }
       case "inc_Prisoner_Management":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Prisoner_Management: state.Skills.Prisoner_Management + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Prisoner_Management: state.Skills.Prisoner_Management = state.Skills.Prisoner_Management
+              }
+            }
           }
       case "inc_Leadership":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Leadership: state.Skills.Leadership + 1
             },
             Skill_Points: state.Skill_Points - 1
           }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Leadership: state.Skills.Leadership = state.Skills.Leadership
+              }
+            }
+          }
       case "inc_Trade":
+        if (state.Skill_Points > 0) {
           return {
             ...state,
             Skills: {
               ...state.Skills,
-              Ironflesh: state.Skills.Ironflesh + 1
+              Trade: state.Skills.Trade + 1
             },
             Skill_Points: state.Skill_Points - 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Trade: state.Skills.Trade = state.Skills.Trade
+              }
+            }
+          }
+      case "dec_Ironflesh":
+        if (state.Skills.Ironflesh > state.Limits.Ironflesh_Min) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Ironflesh: state.Skills.Ironflesh - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Ironflesh: state.Skills.Ironflesh = state.Skills.Ironflesh
+              }
+            }
+          }
+      case "dec_Power_Strike":
+        if (state.Skills.Power_Strike > state.Limits.Power_Strike_Min) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Power_Strike: state.Skills.Power_Strike - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Power_Strike: state.Skills.Power_Strike = state.Skills.Power_Strike
+              }
+            }
+          }
+      case "dec_Power_Throw":
+        if (state.Skills.Power_Throw > state.Limits.Power_Throw_Min) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Power_Throw: state.Skills.Power_Throw - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Power_Throw: state.Skills.Power_Throw = state.Skills.Power_Throw
+              }
+            }
+          }
+      case "dec_Power_Draw":
+        if (state.Skills.Power_Draw > state.Limits.Power_Draw_Min) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Power_Draw: state.Skills.Power_Draw - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Power_Draw: state.Skills.Power_Draw = state.Skills.Power_Draw
+              }
+            }
+          }
+      case "dec_Weapon_Master":
+        if (state.Skills.Weapon_Master > state.Limits.Weapon_Master_Min) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Weapon_Master: state.Skills.Weapon_Master - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Weapon_Master: state.Skills.Weapon_Master = state.Skills.Weapon_Master
+              }
+            }
+          }
+      case "dec_Shield":
+        if (state.Skills.Shield > state.Limits.Shield_Min) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Shield: state.Skills.Shield - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Shield: state.Skills.Shield = state.Skills.Shield
+              }
+            }
+          }
+      case "dec_Athletics":
+        if (state.Skills.Athletics > state.Limits.Athletics_Min) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Athletics: state.Skills.Athletics - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Athletics: state.Skills.Athletics = state.Skills.Athletics
+              }
+            }
+          }
+      case "dec_Riding":
+        if (state.Skills.Riding > state.Limits.Riding_Min) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Riding: state.Skills.Riding - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Riding: state.Skills.Riding = state.Skills.Riding
+              }
+            }
+          }
+      case "dec_Horse_Archery":
+        if (state.Skills.Horse_Archery > state.Limits.Horse_Archery_Min) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Horse_Archery: state.Skills.Horse_Archery - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Horse_Archery: state.Skills.Horse_Archery = state.Skills.Horse_Archery
+              }
+            }
+          }
+      case "dec_Looting":
+        if (state.Skills.Looting > state.Limits.Looting_Min) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Looting: state.Skills.Looting - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Looting: state.Skills.Looting = state.Skills.Looting
+              }
+            }
+          }
+      case "dec_Trainer":
+        if (state.Skills.Trainer > state.Limits.Trainer_Min) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Trainer: state.Skills.Trainer - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Trainer: state.Skills.Trainer = state.Skills.Trainer
+              }
+            }
+          }
+      case "dec_Tracking":
+        if (state.Skills.Tracking > state.Limits.Tracking_Min) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Tracking: state.Skills.Tracking - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Tracking: state.Skills.Tracking = state.Skills.Tracking
+              }
+            }
+          }
+      case "dec_Tactics":
+        if (state.Skills.Tactics > state.Limits.Tactics_Min) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Tactics: state.Skills.Tactics - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Tactics: state.Skills.Tactics = state.Skills.Tactics
+              }
+            }
+          }
+      case "dec_Path_Finding":
+        if (state.Skills.Path_Finding > state.Limits.Path_Finding_Min) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Path_Finding: state.Skills.Path_Finding - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Path_Finding: state.Skills.Path_Finding = state.Skills.Path_Finding
+              }
+            }
+          }
+      case "dec_Spotting":
+        if (state.Skills.Spotting > state.Limits.Spotting_Min) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Spotting: state.Skills.Spotting - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Spotting: state.Skills.Spotting = state.Skills.Spotting
+              }
+            }
+          }
+      case "dec_Inventory_Management":
+        if (state.Skills.Inventory_Management > state.Limits.Inventory_Management) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Inventory_Management: state.Skills.Inventory_Management - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Inventory_Management: state.Skills.Inventory_Management = state.Skills.Inventory_Management
+              }
+            }
+          }
+      case "dec_Wound_Treatment":
+        if (state.Skills.Wound_Treatment > state.Limits.Wound_Treatment) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Wound_Treatment: state.Skills.Wound_Treatment - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Wound_Treatment: state.Skills.Wound_Treatment = state.Skills.Wound_Treatment
+              }
+            }
+          }
+      case "dec_Surgery":
+        if (state.Skills.Surgery > state.Limits.Surgery) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Surgery: state.Skills.Surgery - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Surgery: state.Skills.Surgery = state.Skills.Surgery
+              }
+            }
+          }
+      case "dec_First_Aid":
+        if (state.Skills.First_Aid > state.Limits.First_Aid) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              First_Aid: state.Skills.First_Aid - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                First_Aid: state.Skills.First_Aid = state.Skills.First_Aid
+              }
+            }
+          }
+      case "dec_Engineer":
+        if (state.Skills.Engineer > state.Limits.Engineer) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Engineer: state.Skills.Engineer - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Engineer: state.Skills.Engineer = state.Skills.Engineer
+              }
+            }
+          }
+      case "dec_Persuasion":
+        if (state.Skills.Persuasion > state.Limits.Persuasion) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Persuasion: state.Skills.Persuasion - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Persuasion: state.Skills.Persuasion = state.Skills.Persuasion
+              }
+            }
+          }
+      case "dec_Prisoner_Management":
+        if (state.Skills.Prisoner_Management > state.Limits.Prisoner_Management) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Prisoner_Management: state.Skills.Prisoner_Management - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Prisoner_Management: state.Skills.Prisoner_Management = state.Skills.Prisoner_Management
+              }
+            }
+          }
+      case "dec_Leadership":
+        if (state.Skills.Leadership > state.Limits.Leadership) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Leadership: state.Skills.Leadership - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Leadership: state.Skills.Leadership = state.Skills.Leadership
+              }
+            }
+          }
+      case "dec_Trade":
+        if (state.Skills.Trade > state.Limits.Trade) {
+          return {
+            ...state,
+            Skills: {
+              ...state.Skills,
+              Trade: state.Skills.Trade - 1
+            },
+            Skill_Points: state.Skill_Points + 1
+          }
+        } else {
+            return {
+              ...state,
+              Skills: {
+                ...state.Skills,
+                Trade: state.Skills.Trade = state.Skills.Trade
+              }
+            }
           }
 
       case "Male":
@@ -1573,6 +2444,8 @@ export default function Home() {
     }
   }
 
+  //TODO: insert useEffect here, try putting all of these functions into a useEffects hook connected to state.Father
+
   const changeFromNoble = () => {
     if (state.Father == "Noble") {
       switch (state.Gender) {
@@ -2246,14 +3119,14 @@ export default function Home() {
   return (
     <context.Provider value={{contextState: state, contextDispatch: dispatch}}>
       {state.Equipment}
-      <Dropdown>
+      <Dropdown title = "Gender">
         <div>
             <p>Gender</p>
             <button onClick={() => dispatch('Male')}>Male</button>
             <button onClick={() => dispatch('Female')}>Female</button>
         </div>
       </Dropdown>
-      <Dropdown>
+      <Dropdown title = "Father">
         <div>
             <p>Father</p>
             <button onClick={() => dispatch('Noble')}>Noble</button>

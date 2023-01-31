@@ -2,33 +2,47 @@ import { useState, useEffect, useRef } from 'react';
 
 type props = {
     children: JSX.Element,
+    title: string
   };
 
-export default function Dropdown({children}: props) {
+export default function Dropdown({children, title}: props) {
     const [open, setOpen] = useState(false);
-    const boxMenu = useRef(null)
+
+    let menuRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const closeOpenMenus = (e: any) => {
-            if (boxMenu.current && open && !boxMenu.current.contains(e.target)){
-              setOpen(false)
+        let handler = (e: Event) => {
+            if (e.target) {
+                setOpen(false);
             }
         }
 
-        document.addEventListener('mousedown', closeOpenMenus)
-        return () => document.addEventListener('mousedown', closeOpenMenus)
-    }, [boxMenu])
+        document.addEventListener("mousedown", handler);
+    });
 
-    //make terminary operator decide whether it's set to open or closed
+
+    /*return (
+        <div className='menuContainer'>
+            <div className='menuTrigger' onClick={() => {setOpen(!open)}}>
+
+            </div>
+            <div className='dropdownMenu'>
+                <h3>0</h3>
+                <ul>
+                    {children}
+                </ul>
+            </div>
+        </div>
+    )*/
     if (open == false) {
         return (
-            <div ref={boxMenu}>
-                <p onClick={() => setOpen(true)}>0</p>
+            <div ref={menuRef}>
+                <p onClick={() => setOpen(true)}>{title}</p>
             </div>
         )
     } else {
         return (
-            <div ref={boxMenu} onClick={() => setOpen(false)}> 
+            <div ref={menuRef} onClick={() => setOpen(false)}> 
                 <div>
                     {children}
                 </div>
