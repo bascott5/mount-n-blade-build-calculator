@@ -4,7 +4,7 @@ After that the player can freely add to their stats.
 They should then be able to save the information and load it back into the website at a later time.
 Scaling would feature the inclusion of a seperate build calculator for Bannerlord, as well as other Warband mods.*/
 import { Inter } from '@next/font/google'
-import { createContext, Dispatch, useReducer } from 'react'
+import { createContext, Dispatch, useEffect, useReducer } from 'react'
 import Background from '@/components/background';
 import Attributes from '@/components/attributes';
 import Proficiencies from '@/components/proficiencies';
@@ -1480,17 +1480,7 @@ export default function Home() {
         }
 
         case "Noble":
-          if (state.Father == "Merchant") {
-            changeFromMerchant();
-          } else if (state.Father == "Warrior") {
-            changeFromWarrior();
-          } else if (state.Father == "Hunter") {
-            changeFromHunter();
-          } else if (state.Father == "Nomad") {
-            changeFromNomad();
-          } else if (state.Father == "Thief") {
-            changeFromThief();
-          } else if (state.Father != "Noble") {
+          if (state.Father != "Noble") {
             switch (state.Gender) {
               case "":
                 return {
@@ -1584,17 +1574,7 @@ export default function Home() {
           }
 
         case "Merchant":
-          if (state.Father == "Noble") {
-            changeFromNoble();
-          } else if (state.Father == "Warrior") {
-            changeFromWarrior();
-          } else if (state.Father == "Hunter") {
-            changeFromHunter();
-          } else if (state.Father == "Nomad") {
-            changeFromNomad();
-          } else if (state.Father == "Thief") {
-            changeFromThief();
-          } else if (state.Father != "Merchant") {
+          if (state.Father != "Merchant") {
             return {
               ...state,
               Father: "Merchant",
@@ -1631,17 +1611,7 @@ export default function Home() {
           }
 
         case "Warrior":
-          if (state.Father == "Noble") {
-            changeFromNoble();
-          } else if (state.Father == "Merchant") {
-            changeFromMerchant();
-          } else if (state.Father == "Hunter") {
-            changeFromHunter();
-          } else if (state.Father == "Nomad") {
-            changeFromNomad();
-          } else if (state.Father == "Thief") {
-            changeFromThief();
-          } else if (state.Father != "Warrior") {
+          if (state.Father != "Warrior") {
             return {
               ...state,
               Father: "Warrior",
@@ -1684,17 +1654,7 @@ export default function Home() {
           }
           
         case "Hunter":
-          if (state.Father == "Noble") {
-            changeFromNoble();
-          } else if (state.Father == "Merchant") {
-            changeFromMerchant();
-          } else if (state.Father == "Warrior") {
-            changeFromWarrior();
-          } else if (state.Father == "Nomad") {
-            changeFromNomad();
-          } else if (state.Father == "Thief") {
-            changeFromThief();
-          } else if (state.Father != "Hunter") {
+          if (state.Father != "Hunter") {
             return {
               ...state,
               Father: "Hunter",
@@ -1731,17 +1691,7 @@ export default function Home() {
           }
 
         case "Nomad":
-          if (state.Father == "Noble") {
-            changeFromNoble();
-          } else if (state.Father == "Merchant") {
-            changeFromMerchant();
-          } else if (state.Father == "Warrior") {
-            changeFromWarrior();
-          } else if (state.Father == "Hunter") {
-            changeFromHunter();
-          } else if (state.Father == "Thief") {
-            changeFromThief();
-          } else if (state.Father != "Nomad") {
+          if (state.Father != "Nomad") {
             switch (state.Gender) {
               case "":
                 return {
@@ -1840,17 +1790,6 @@ export default function Home() {
           }
 
         case "Thief":
-          if (state.Father == "Noble") {
-            changeFromNoble();
-          } else if (state.Father == "Merchant") {
-            changeFromMerchant();
-          } else if (state.Father == "Warrior") {
-            changeFromWarrior();
-          } else if (state.Father == "Hunter") {
-            changeFromHunter();
-          } else if (state.Father == "Nomad") {
-            changeFromNomad();
-          }
           if (state.Father != "Thief") {
             return {
               ...state,
@@ -2443,8 +2382,6 @@ export default function Home() {
             }
     }
   }
-
-  //TODO: insert useEffect here, try putting all of these functions into a useEffects hook connected to state.Father
 
   const changeFromNoble = () => {
     if (state.Father == "Noble") {
@@ -3114,11 +3051,23 @@ export default function Home() {
     }
   }
   
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    if (state.Father == 'Noble') {
+      changeFromNoble();
+    } else if (state.Father == 'Merchant') {
+      changeFromMerchant();
+    } else if (state.Father == 'Warrior') {
+      changeFromWarrior();
+    }
+  }, [state.Father]);
 
   return (
     <context.Provider value={{contextState: state, contextDispatch: dispatch}}>
       {state.Equipment}
+      <button onClick={() => dispatch('Warrior')}>Warrior</button>
+      <button onClick={() => dispatch('Merchant')}>Merchant</button>
       <Dropdown title = "Gender">
         <div>
             <p>Gender</p>
@@ -3142,4 +3091,4 @@ export default function Home() {
       <Proficiencies/>
     </context.Provider>
   )
-}
+} //idea: make each action trigger only a change in state.Father's string, then have a seperate useEffect for what happens as a result of state.Father being changed, as well as a useEffect for changing from a different background
